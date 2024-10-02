@@ -33,9 +33,9 @@ namespace GwiNews.Domain.Entities
 
         public DateTime PublicationDate { get; set; }
 
-        public UserWithNews Author { get; set; }
+        //public UserWithNews Author { get; set; }
 
-        public UserWithNews Editor { get; set; }
+        //public UserWithNews Editor { get; set; }
 
         public NewsCategory newsCategory { get; set; }
 
