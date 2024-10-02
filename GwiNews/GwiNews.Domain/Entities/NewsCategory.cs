@@ -1,4 +1,6 @@
-﻿namespace GwiNews.Domain.Entities
+﻿using GwiNews.Domain.Validation;
+
+namespace GwiNews.Domain.Entities
 {
     public class NewsCategory
     {
@@ -10,10 +12,8 @@
             get => _name;
             set
             {
-                if (value.Length > 25)
-                {
-                    throw new ArgumentException("O nome da categoria não pode exceder 25 caracteres.");
-                }
+                DomainExceptionValidation.When(string.IsNullOrEmpty(value), "O nome da categoria não pode ser vazio.");
+                DomainExceptionValidation.When(value.Length > 25, "O nome da categoria não pode exceder 25 caracteres.");
                 _name = value;
             }
         }
