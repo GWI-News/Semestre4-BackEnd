@@ -65,6 +65,12 @@ namespace GwiNews.Domain.Test
         }
 
         [Fact]
+        public void Constructor_WithShortPassword_ShouldThrowDomainException()
+        {
+            Assert.Throws<DomainExceptionValidation>(() => new User(Guid.NewGuid(), UserRole.Administrador, "Nome Completo", "email@example.com", "123", true));
+        }
+
+        [Fact]
         public void Constructor_WithNullStatus_ShouldThrowDomainException()
         {
             Assert.Throws<DomainExceptionValidation>(() => new User(Guid.NewGuid(), UserRole.Administrador, "Nome Completo", "email@example.com", "senha123", null));
