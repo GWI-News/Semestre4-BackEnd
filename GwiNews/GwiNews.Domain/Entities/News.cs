@@ -33,21 +33,21 @@ namespace GwiNews.Domain.Entities
 
         public DateTime PublicationDate { get; set; }
 
-        public UserWithNews Author { get; set; }
+        //public UserWithNews Author { get; set; }
 
-        public UserWithNews Editor { get; set; }
+        //public UserWithNews Editor { get; set; }
 
-        public NewsCategory newsCategory { get; set; }
+        //public NewsCategory newsCategory { get; set; }
 
-        public ICollection<NewsSubcategory> NewsSubcategories { get; set; } = new List<NewsSubcategory>();
+        //public ICollection<NewsSubcategory> NewsSubcategories { get; set; } = new List<NewsSubcategory>();
 
-        public ICollection<ReaderUser> FavoritedByUsers { get; set; } = new List<ReaderUser>();
+        //public ICollection<ReaderUser> FavoritedByUsers { get; set; } = new List<ReaderUser>();
 
         //Construtores
 
         public News() { }
 
-        public News(Guid id, NewsStatus status, string newsUrl, string title, string subtitle, string newsBody, string imageUrl, DateTime publicationDate, UserWithNews author, UserWithNews editor, NewsCategory newsCategory)
+        public News(Guid id, NewsStatus status, string newsUrl, string title, string subtitle, string newsBody, string imageUrl, DateTime publicationDate/*, UserWithNews author, UserWithNews editor, NewsCategory newsCategory*/)
         {
             Id = id;
             Status = status;
@@ -57,9 +57,9 @@ namespace GwiNews.Domain.Entities
             NewsBody = newsBody;
             ImageUrl = imageUrl;
             PublicationDate = publicationDate;
-            Author = author;
-            Editor = editor;
-            this.newsCategory = newsCategory;
+            //Author = author;
+            //Editor = editor;
+            //this.newsCategory = newsCategory;
         }
     }
 }
