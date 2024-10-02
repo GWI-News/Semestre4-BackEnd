@@ -37,7 +37,7 @@ namespace GwiNews.Domain.Entities
             DomainExceptionValidation.When(role == null, "O papel do usuário é obrigatório.");
             DomainExceptionValidation.When(string.IsNullOrWhiteSpace(completeName) || completeName.Length > 255, "O nome completo é obrigatório e não pode exceder 255 caracteres.");
             DomainExceptionValidation.When(string.IsNullOrWhiteSpace(email) || email.Length > 255, "Um e-mail válido é obrigatório e não pode exceder 255 caracteres.");
-            DomainExceptionValidation.When(string.IsNullOrWhiteSpace(password) || password.Length > 255, "A senha é obrigatória e não pode exceder 255 caracteres.");
+            DomainExceptionValidation.When(string.IsNullOrWhiteSpace(password) || password.Length < 6 || password.Length > 255, "A senha deve ter pelo menos 6 caracteres e não pode exceder 255 caracteres.");
             DomainExceptionValidation.When(status == null, "O status é obrigatório.");
 
             Role = role;
