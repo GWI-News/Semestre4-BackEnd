@@ -6,4 +6,14 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <PackageReference Include="MediatR" Version="12.4.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\GwiNews.Application\GwiNews.Application.csproj" />
+    <ProjectReference Include="..\GwiNews.Domain\GwiNews.Domain.csproj" />
+    <ProjectReference Include="..\GwiNews.Infra.Data\GwiNews.Infra.Data.csproj" />
+  </ItemGroup>
+
 </Project>

@@ -8,16 +8,16 @@ namespace EntityConfiguration
     {
         public void Configure(EntityTypeBuilder<NewsCategory> builder)
         {
-            builder.HasKey(nc => nc.Id);
-            builder.Property(nc => nc.Id)
+            builder.HasKey(n => n.Id);
+            builder.Property(n => n.Id)
                    .IsRequired()
                    .ValueGeneratedOnAdd();
 
-            builder.Property(nc => nc.Name)
+            builder.Property(n => n.Name)
                    .IsRequired()
                    .HasMaxLength(25);
 
-            builder.HasMany(nc => nc.News)
+            builder.HasMany(n => n.News)
                    .WithOne(news => news.NewsCategory)
                    .HasForeignKey(news => news.NewsCategory.Id);
 
