@@ -1,5 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using GwiNews.Domain.Entities;
+using EntityConfiguration;
+using System.Reflection.Emit;
 
 namespace GwiNews.Infra.Data.Context
 {
@@ -8,6 +10,7 @@ namespace GwiNews.Infra.Data.Context
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) 
             : base(options) { }
         public DbSet<User> Users { get; set; }
+        public DbSet<NewsCategory> NewsCategories { get; set; } 
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
