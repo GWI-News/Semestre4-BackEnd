@@ -9,6 +9,6 @@ namespace Interfaces
         Task AddNewsCategory(NewsCategory newsCategory);
         Task UpdateNewsCategory(NewsCategory newsCategory);
         Task DeleteNewsCategory(Guid id);
-        Task<IEnumerable<NewsCategory>> GetNewsCategoriesWithSubcategories();
+        //Task<IEnumerable<NewsCategory>> GetNewsCategoriesWithSubcategories();
     }
 }
