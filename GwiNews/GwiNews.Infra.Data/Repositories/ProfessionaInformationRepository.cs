@@ -1,10 +1,9 @@
 ﻿using GwiNews.Domain.Entities;
 using GwiNews.Domain.Interfaces;
 using GwiNews.Infra.Data.Context;
-using GwiNews.Infra.Data.Context;
 using Microsoft.EntityFrameworkCore;
 
-namespace   GwiNews.Infra.Data.Repositories
+namespace GwiNews.Infra.Data.Repositories
 {
     public class ProfessionalInformationRepository : IProfessionalInformationRepository
     {

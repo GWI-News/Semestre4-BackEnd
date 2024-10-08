@@ -1,13 +1,11 @@
-﻿using MediatR;
+﻿using GwiNews.Domain.Interfaces;
+using GwiNews.Infra.Data.Context;
+using GwiNews.Infra.Data.Repositories;
+using Infra.Data.Repositories;
+using Interfaces;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using GwiNews.Domain.Interfaces;
-using GwiNews.Infra.Data.Context;
-using GwiNews.Infra.Data.EntityConfiguration;
-using GwiNews.Infra.Data.Repositories;
-using Interfaces;
-using Infra.Data.Repositories;
 
 namespace GwiNews.Infra.IoC
 {

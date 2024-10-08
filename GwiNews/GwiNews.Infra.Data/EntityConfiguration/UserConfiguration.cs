@@ -1,6 +1,6 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using GwiNews.Domain.Entities;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using GwiNews.Domain.Entities;
 
 namespace GwiNews.Infra.Data.EntityConfiguration
 {

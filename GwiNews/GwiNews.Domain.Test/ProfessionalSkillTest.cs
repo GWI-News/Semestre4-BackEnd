@@ -1,105 +1,78 @@
-﻿//using GwiNews.Application.Services;
-using GwiNews.Domain.Entities;
-using GwiNews.Domain.Interfaces;
-using Moq;
+﻿using GwiNews.Domain.Entities;
+using GwiNews.Domain.Validation;
 
 namespace GwiNews.Tests
 {
-    public class ProfessionalSkillServiceTests
+    public class ProfessionalSkillTest
     {
-        private readonly Mock<IProfessionalSkillRepository> _professionalSkillRepositoryMock;
-        //private readonly ProfessionalSkillService _professionalSkillService;
-
-        public ProfessionalSkillServiceTests()
+        [Fact]
+        public void Constructor_ShouldInitializeWithValidParameters()
         {
-            _professionalSkillRepositoryMock = new Mock<IProfessionalSkillRepository>();
-        //    _professionalSkillService = new ProfessionalSkillService(_professionalSkillRepositoryMock.Object);
+            // Arrange
+            var skill1 = "C# Programming";
+            var skill2 = "SQL Database";
+            var skill3 = "Web Development";
+            var skill4 = "Machine Learning";
+
+            // Act
+            var professionalSkill = new ProfessionalSkill(skill1, skill2, skill3, skill4);
+
+            // Assert
+            Assert.NotNull(professionalSkill);
+            Assert.Equal(skill1, professionalSkill.Skill1);
+            Assert.Equal(skill2, professionalSkill.Skill2);
+            Assert.Equal(skill3, professionalSkill.Skill3);
+            Assert.Equal(skill4, professionalSkill.Skill4);
         }
 
         [Fact]
-        public async Task GetAllProfessionalSkillsAsync_ShouldReturnAllSkills()
+        public void Constructor_ShouldThrowException_WhenSkill1IsEmpty()
         {
-            // Arrange
-            var mockSkills = new List<ProfessionalSkill>
-            {
-                new ProfessionalSkill(Guid.NewGuid(), "Skill 1", "Skill 2", "Skill 3", "Skill 4"),
-                new ProfessionalSkill(Guid.NewGuid(), "Skill 5", "Skill 6", "Skill 7", "Skill 8")
-            };
-
-            _professionalSkillRepositoryMock.Setup(repo => repo.GetAllAsync()).ReturnsAsync(mockSkills);
-
-            // Act
-         //   var result = await _professionalSkillService.GetAllProfessionalSkillsAsync();
-
-            // Assert
-           // Assert.Equal(2, result.Count());
+            // Act & Assert
+            var exception = Assert.Throws<DomainExceptionValidation>(() =>
+                new ProfessionalSkill(string.Empty, "Skill 2", "Skill 3", "Skill 4")
+            );
+            Assert.Equal("A Skill1 é obrigatória.", exception.Message);
         }
 
         [Fact]
-        public async Task GetProfessionalSkillByIdAsync_ShouldReturnCorrectSkill()
+        public void Constructor_ShouldThrowException_WhenSkill1ExceedsMaxLength()
         {
             // Arrange
-            var skillId = Guid.NewGuid();
-            var mockSkill = new ProfessionalSkill(skillId, "Skill 1", "Skill 2", "Skill 3", "Skill 4");
+            var longSkill = new string('a', 56); // 56 characters long
 
-            _professionalSkillRepositoryMock.Setup(repo => repo.GetByIdAsync(skillId)).ReturnsAsync(mockSkill);
-
-            // Act
-          //  var result = await _professionalSkillService.GetProfessionalSkillByIdAsync(skillId);
-
-            // Assert
-          //  Assert.NotNull(result);
-          //  Assert.Equal("Skill 1", result.Skill1);
+            // Act & Assert
+            var exception = Assert.Throws<DomainExceptionValidation>(() =>
+                new ProfessionalSkill(longSkill, "Skill 2", "Skill 3", "Skill 4")
+            );
+            Assert.Equal("A Skill1 não pode exceder 55 caracteres.", exception.Message);
         }
 
         [Fact]
-        public async Task CreateProfessionalSkillAsync_ShouldReturnNewlyCreatedSkill()
+        public void Update_ShouldUpdateProfessionalSkill()
         {
             // Arrange
-            var newSkill = new ProfessionalSkill("Skill 1", "Skill 2", "Skill 3", "Skill 4");
-            _professionalSkillRepositoryMock.Setup(repo => repo.CreateAsync(It.IsAny<ProfessionalSkill>())).ReturnsAsync(newSkill);
+            var skill1 = "C# Programming";
+            var skill2 = "SQL Database";
+            var skill3 = "Web Development";
+            var skill4 = "Machine Learning";
+
+            var professionalSkill = new ProfessionalSkill(skill1, skill2, skill3, skill4);
+
+            // New values for update
+            var newSkill1 = "Python Programming";
+            var newSkill2 = "Data Analysis";
+            var newSkill3 = "Cloud Computing";
+            var newSkill4 = "AI Development";
 
             // Act
-         //   var result = await _professionalSkillService.CreateProfessionalSkillAsync(newSkill);
+            professionalSkill.Update(professionalSkill.Id, newSkill1, newSkill2, newSkill3, newSkill4);
 
             // Assert
-          //  Assert.NotNull(result);
-          //  Assert.Equal("Skill 1", result.Skill1);
-        }
-
-        [Fact]
-        public async Task UpdateProfessionalSkillAsync_ShouldUpdateAndReturnUpdatedSkill()
-        {
-            // Arrange
-            var existingSkill = new ProfessionalSkill(Guid.NewGuid(), "Old Skill 1", "Old Skill 2", "Old Skill 3", "Old Skill 4");
-
-            _professionalSkillRepositoryMock.Setup(repo => repo.GetByIdAsync(existingSkill.Id)).ReturnsAsync(existingSkill);
-            _professionalSkillRepositoryMock.Setup(repo => repo.UpdateAsync(It.IsAny<ProfessionalSkill>())).ReturnsAsync(existingSkill);
-
-            // Act
-            existingSkill.Update(existingSkill.Id, "Updated Skill 1", "Updated Skill 2", "Updated Skill 3", "Updated Skill 4");
-        //    var result = await _professionalSkillService.UpdateProfessionalSkillAsync(existingSkill);
-
-            // Assert
-         //   Assert.NotNull(result);
-         //   Assert.Equal("Updated Skill 1", result.Skill1);
-        }
-
-        [Fact]
-        public async Task DeleteProfessionalSkillAsync_ShouldDeleteSkill()
-        {
-            // Arrange
-            var skillId = Guid.NewGuid();
-            var mockSkill = new ProfessionalSkill(skillId, "Skill 1", "Skill 2", "Skill 3", "Skill 4");
-
-            _professionalSkillRepositoryMock.Setup(repo => repo.GetByIdAsync(skillId)).ReturnsAsync(mockSkill);
-            _professionalSkillRepositoryMock.Setup(repo => repo.DeleteAsync(skillId)).Returns(Task.CompletedTask);
-
-            // Act
-          //  await _professionalSkillService.DeleteProfessionalSkillAsync(skillId);
-
-            // Assert
-            _professionalSkillRepositoryMock.Verify(repo => repo.DeleteAsync(skillId), Times.Once);
+            Assert.Equal(newSkill1, professionalSkill.Skill1);
+            Assert.Equal(newSkill2, professionalSkill.Skill2);
+            Assert.Equal(newSkill3, professionalSkill.Skill3);
+            Assert.Equal(newSkill4, professionalSkill.Skill4);
         }
     }
 }

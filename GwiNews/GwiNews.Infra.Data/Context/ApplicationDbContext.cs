@@ -1,5 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
-using GwiNews.Domain.Entities;
+﻿using GwiNews.Domain.Entities;
+using Microsoft.EntityFrameworkCore;
 
 namespace GwiNews.Infra.Data.Context
 {

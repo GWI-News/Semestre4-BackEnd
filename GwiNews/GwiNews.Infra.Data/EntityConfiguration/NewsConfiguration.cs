@@ -40,7 +40,7 @@ namespace Infra.Data.EntityConfiguration
                 .IsRequired()
                 .HasConversion<int>();
 
-            
+
             /* builder.HasMany(n => n.Authors)
                 .WithOne(y => y.News)
                 .HasForeignKey(z => z.AuthorId)
@@ -56,7 +56,7 @@ namespace Infra.Data.EntityConfiguration
 
                 builder.HasMany(n => n.FavoritedByUsers)
                 .WithMany(y => y.FavoritedNews); */
-            
+
         }
     }
 }
