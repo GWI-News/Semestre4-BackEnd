@@ -1,15 +1,16 @@
-﻿using gwiBack.Domain.Entities;
-using gwiBack.Domain.Interfaces;
-using gwiBack.Infra.Data.Contexts;
+﻿using GwiNews.Domain.Entities;
+using GwiNews.Domain.Interfaces;
+using GwiNews.Infra.Data.Context;
+using GwiNews.Infra.Data.Context;
 using Microsoft.EntityFrameworkCore;
 
-namespace gwiBack.Infra.Data.Repositories
+namespace   GwiNews.Infra.Data.Repositories
 {
     public class ProfessionalInformationRepository : IProfessionalInformationRepository
     {
-        private readonly gwiDbContext _context;
+        private readonly ApplicationDbContext _context;
 
-        public ProfessionalInformationRepository(gwiDbContext context)
+        public ProfessionalInformationRepository(ApplicationDbContext context)
         {
             _context = context ?? throw new ArgumentNullException(nameof(context));
         }

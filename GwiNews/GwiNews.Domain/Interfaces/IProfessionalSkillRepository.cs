@@ -1,11 +1,11 @@
-﻿using gwiBack.Domain.Entities;
+﻿using GwiNews.Domain.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace gwiBack.Domain.Interfaces
+namespace GwiNews.Domain.Interfaces
 {
     public interface IProfessionalSkillRepository
     {

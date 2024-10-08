@@ -1,6 +1,6 @@
-﻿using gwiBack.Domain.Entities;
+﻿using GwiNews.Domain.Entities;
 
-namespace gwiBack.Domain.Interfaces
+namespace GwiNews.Domain.Interfaces
 {
     public interface IProfessionalInformationService
     {

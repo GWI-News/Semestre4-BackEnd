@@ -1,4 +1,4 @@
-﻿namespace gwiBack.Application.DTOs
+﻿namespace GwiNews.Application.DTOs
 {
     public class ProfessionalInformationDTO
     {

@@ -1,4 +1,4 @@
-﻿namespace gwiBack.Domain.Entities
+﻿namespace GwiNews.Domain.Entities
 {
     public class Formation
     {

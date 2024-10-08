@@ -1,6 +1,6 @@
-﻿using gwiBack.Domain.Validation;
+﻿using GwiNews.Domain.Validation;
 
-namespace gwiBack.Domain.Entities
+namespace GwiNews.Domain.Entities
 {
     public class ProfessionalInformation
     {

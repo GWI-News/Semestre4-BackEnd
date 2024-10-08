@@ -1,8 +1,8 @@
-﻿using gwiBack.Domain.Entities;
-using gwiBack.Domain.Interfaces;
+﻿/*using GwiNews.Domain.Entities;
+using GwiNews.Domain.Interfaces;
 
 
-namespace gwiBack.Application.Services
+namespace GwiNews.Application.Services
 {
     public class ProfessionalInformationService : IProfessionalInformationService
     {
@@ -65,3 +65,4 @@ namespace gwiBack.Application.Services
         }
     }
 }
+*/

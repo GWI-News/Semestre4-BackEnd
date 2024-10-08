@@ -1,9 +1,9 @@
-﻿using gwiBack.Domain.Entities;
-using gwiBack.Domain.Interfaces;
+﻿/*using GwiNews.Domain.Entities;
+using GwiNews.Domain.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
 
-namespace gwiBack.API.Controllers
+namespace GwiNews.API.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
@@ -89,3 +89,4 @@ namespace gwiBack.API.Controllers
         }
     }
 }
+*/
