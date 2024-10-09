@@ -11,8 +11,8 @@ namespace GwiNews.Infra.Data.Context
 
         // DbSets para todas as entidades
         public DbSet<User> Users { get; set; }
-        public DbSet<UserWithNews> UsersWithNews { get; set; } // Adicionado DbSet para UserWithNews
-        public DbSet<News> News { get; set; } // **Mantenha apenas esta linha**
+        public DbSet<UserWithNews> UsersWithNews { get; set; }
+        public DbSet<News> News { get; set; }
         public DbSet<NewsCategory> NewsCategories { get; set; }
         public DbSet<Formation> Formations { get; set; }
         public DbSet<ProfessionalInformation> ProfessionalInformation { get; set; }
@@ -25,7 +25,6 @@ namespace GwiNews.Infra.Data.Context
 
             // Aplica as configurações de todas as entidades do assembly atual
             builder.ApplyConfigurationsFromAssembly(typeof(ApplicationDbContext).Assembly);
-
         }
     }
 }
