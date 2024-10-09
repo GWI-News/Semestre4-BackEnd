@@ -1,5 +1,6 @@
 ﻿using GwiNews.Domain.Validation;
 using System.ComponentModel.DataAnnotations;
+using System.Collections.Generic;
 
 namespace GwiNews.Domain.Entities
 {
@@ -17,9 +18,12 @@ namespace GwiNews.Domain.Entities
         [Required]
         public bool? Status { get; set; }
 
+        public ICollection<News>? News { get; set; }
+
         public User(UserRole? role, string? completeName, string? email, string? password, bool? status)
         {
             ValidateDomain(role, completeName, email, password, status);
+            News = new List<News>(); 
         }
 
         public User(Guid? id, UserRole? role, string? completeName, string? email, string? password, bool? status)
@@ -30,6 +34,7 @@ namespace GwiNews.Domain.Entities
             }
             ValidateDomain(role, completeName, email, password, status);
             Id = id;
+            News = new List<News>(); 
         }
 
         private void ValidateDomain(UserRole? role, string? completeName, string? email, string? password, bool? status)
