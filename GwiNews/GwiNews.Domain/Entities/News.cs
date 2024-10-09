@@ -82,6 +82,8 @@ namespace GwiNews.Domain.Entities
             //Author = author;
             //Editor = editor;
             this.NewsCategory = newsCategory;
+
+            //As validações foram entregues na mesma branch da criação da entidade News
         }
     }
 }
