@@ -6,10 +6,10 @@ namespace GwiNews.Domain.Interfaces
     {
         Task<IEnumerable<News>> GetAllNews();
         Task<News> GetNewsById(Guid id);
-        Task<IEnumerable<News>> GetNewsByCategory(Guid categoryId);
-        Task<IEnumerable<News>> GetNewsBySubcategory(Guid subcategoryId);
-        Task<IEnumerable<News>> GetNewsByStatus(NewsStatus status);
+        /*Task<IEnumerable<News>> GetNewsByCategory(Guid categoryId);
         Task<IEnumerable<News>> GetNewsByPublicationDate(DateTime publicationDate);
+        Task<IEnumerable<News>> GetNewsBySubcategory(Guid subcategoryId);*/
+        Task<IEnumerable<News>> GetNewsByStatus(NewsStatus status);
         Task<IEnumerable<News>> GetNewsByTitle(string title);
         Task<IEnumerable<News>> GetNewsBySubtitle(string subtitle);
         Task<IEnumerable<News>> GetNewsByBody(string body);
