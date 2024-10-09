@@ -15,6 +15,7 @@ namespace GwiNews.Infra.Data.Context
         public DbSet<Formation> Formations { get; set; }
         public DbSet<ProfessionalInformation> ProfessionalInformation { get; set; }
         public DbSet<ProfessionalSkill> ProfessionalSkills { get; set; }
+        public DbSet<News> News { get; set; }
 
         // Configurações de modelagem
         protected override void OnModelCreating(ModelBuilder builder)
