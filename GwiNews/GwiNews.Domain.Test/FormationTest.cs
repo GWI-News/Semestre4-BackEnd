@@ -3,7 +3,7 @@ using GwiNews.Domain.Interfaces;
 using GwiNews.Domain.Validation;
 using Moq;
 
-namespace GwiNews.Tests
+namespace GwiNews.Domain.Test
 {
     public class FormationTest
     {
