@@ -26,17 +26,6 @@ namespace GwiNews.Infra.Data.Context
             // Aplica as configurações de todas as entidades do assembly atual
             builder.ApplyConfigurationsFromAssembly(typeof(ApplicationDbContext).Assembly);
 
-            // Configuração do relacionamento 1-N entre UserWithNews e News
-            builder.Entity<UserWithNews>()
-                .HasMany(u => u.News)            // UserWithNews tem muitas News
-                .WithOne(n => n.UserWithNews)     // Cada News pertence a um UserWithNews
-                .HasForeignKey(n => n.UserWithNewsId) // Configurando a chave estrangeira
-                .OnDelete(DeleteBehavior.Cascade); // Deletar as News ao deletar UserWithNews
-
-            // Garantir que o e-mail dos usuários seja único
-            builder.Entity<User>()
-                .HasIndex(u => u.Email)
-                .IsUnique();
         }
     }
 }
