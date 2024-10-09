@@ -13,27 +13,37 @@ namespace GwiNews.Domain.Entities
     // Atributos
     public class News
     {
-        public Guid Id { get; set; } = Guid.NewGuid();
-        public NewsStatus Status { get; set; }
-        public string NewsUrl { get; set; }
-        public string Title { get; set; }
-        public string Subtitle { get; set; }
-        public string NewsBody { get; set; }
-        public string ImageUrl { get; set; }
-        public DateTime PublicationDate { get; set; }
+        public Guid? Id { get; set; } = Guid.NewGuid();
 
-        // Adicionando a propriedade UserId
-        public Guid UserId { get; set; }
+        public NewsStatus? Status { get; set; }
 
-        // Propriedade de navegação para o autor da notícia
-        public UserWithNews UserWithNews { get; set; }
+        public string? NewsUrl { get; set; }
 
-        public NewsCategory NewsCategory { get; set; }
+        public string? Title { get; set; }
 
-        // Construtores
+        public string? Subtitle { get; set; }
+
+        public string? NewsBody { get; set; }
+
+        public string? ImageUrl { get; set; }
+
+        public DateTime? PublicationDate { get; set; }
+
+        public Guid? UserId { get; set; } // Atributo UserId
+
+        public UserWithNews? UserWithNews { get; set; }
+
+        public NewsCategory? NewsCategory { get; set; }
+
+        //public ICollection<NewsSubcategory>? NewsSubcategories { get; set; } = new List<NewsSubcategory>();
+
+        //public ICollection<ReaderUser>? FavoritedByUsers { get; set; } = new List<ReaderUser>();
+
+        //Construtores
+
         public News() { }
 
-        public News(Guid id, NewsStatus status, string newsUrl, string title, string subtitle, string newsBody, string imageUrl, DateTime publicationDate, Guid userId, NewsCategory newsCategory)
+        public News(Guid? id, NewsStatus? status, string? newsUrl, string? title, string? subtitle, string? newsBody, string? imageUrl, DateTime? publicationDate, Guid? userId, NewsCategory? newsCategory)
         {
             Id = id;
             Status = status;
@@ -47,8 +57,7 @@ namespace GwiNews.Domain.Entities
             this.NewsCategory = newsCategory;
         }
 
-        // Validações
-        public void ValidateDomain(NewsStatus status, string newsUrl, string title, string subtitle, string newsBody, string imageUrl, DateTime publicationDate, Guid userId, NewsCategory newsCategory)
+        public void ValidateDomain(NewsStatus? status, string? newsUrl, string? title, string? subtitle, string? newsBody, string? imageUrl, DateTime? publicationDate, Guid? userId, NewsCategory? newsCategory)
         {
             DomainExceptionValidation.When(string.IsNullOrWhiteSpace(newsUrl) || newsUrl.Length > 255, "A URL da notícia é obrigatória e não pode exceder 255 caracteres.");
             DomainExceptionValidation.When(string.IsNullOrWhiteSpace(title) || title.Length > 75, "O título da notícia é obrigatório e não pode exceder 75 caracteres.");
