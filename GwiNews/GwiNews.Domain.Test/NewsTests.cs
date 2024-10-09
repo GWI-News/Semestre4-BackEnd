@@ -18,8 +18,8 @@ namespace GwiNews.Domain.Test
                 "Subtítulo da Notícia",
                 "Corpo da notícia.",
                 "https://example.com/image.jpg",
-                DateTime.Now,
-                new NewsCategory()
+                DateTime.Now
+            //new NewsCategory()
             );
 
             Assert.NotNull(news);
@@ -42,8 +42,8 @@ namespace GwiNews.Domain.Test
                 "Subtítulo da Notícia",
                 "Corpo da notícia.",
                 "https://example.com/image.jpg",
-                DateTime.Now,
-                new NewsCategory()
+                DateTime.Now
+                //new NewsCategory()
             );
 
             Assert.Equal(NewsStatus.Publicada, news.Status);
@@ -65,8 +65,8 @@ namespace GwiNews.Domain.Test
                 "Subtítulo da Notícia",
                 "Corpo da notícia.",
                 "https://example.com/image.jpg",
-                DateTime.Now,
-                new NewsCategory()
+                DateTime.Now
+                //new NewsCategory()
             ));
         }
 
@@ -81,8 +81,8 @@ namespace GwiNews.Domain.Test
                 "Subtítulo da Notícia",
                 "Corpo da notícia.",
                 "https://example.com/image.jpg",
-                DateTime.Now,
-                new NewsCategory()
+                DateTime.Now
+                //new NewsCategory()
             ));
         }
 
@@ -97,8 +97,8 @@ namespace GwiNews.Domain.Test
                 new string('A', 256),
                 "Corpo da notícia.",
                 "https://example.com/image.jpg",
-                DateTime.Now,
-                new NewsCategory()
+                DateTime.Now
+                //new NewsCategory()
             ));
         }
 
@@ -113,8 +113,8 @@ namespace GwiNews.Domain.Test
                 "Subtítulo da Notícia",
                 "Corpo da notícia.",
                 "https://example.com/image.jpg",
-                DateTime.Now,
-                new NewsCategory()
+                DateTime.Now
+                //new NewsCategory()
             ));
         }
 
@@ -129,8 +129,8 @@ namespace GwiNews.Domain.Test
                 "Subtítulo da Notícia",
                 new string('A', 65536),
                 "https://example.com/image.jpg",
-                DateTime.Now,
-                new NewsCategory()
+                DateTime.Now
+                //new NewsCategory()
             ));
         }
 
@@ -145,8 +145,8 @@ namespace GwiNews.Domain.Test
                 "Subtítulo da Notícia",
                 "Corpo da notícia.",
                 new string('A', 556),
-                DateTime.Now,
-                new NewsCategory()
+                DateTime.Now
+                //new NewsCategory()
             ));
         }
 
@@ -161,8 +161,8 @@ namespace GwiNews.Domain.Test
                 "Subtítulo da Notícia",
                 "Corpo da notícia.",
                 "https://example.com/image.jpg",
-                DateTime.Now,
-                null
+                DateTime.Now
+                //null
             ));
         }
     }
