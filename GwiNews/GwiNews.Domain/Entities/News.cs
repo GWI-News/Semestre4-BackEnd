@@ -19,11 +19,11 @@ namespace GwiNews.Domain.Entities
 
         public string? NewsUrl { get; set; }
 
-        public string? Title { get; set; }
+        public string Title { get; set; }
 
         public string? Subtitle { get; set; }
 
-        public string? NewsBody { get; set; }
+        public string NewsBody { get; set; }
 
         public string? ImageUrl { get; set; }
 
@@ -43,7 +43,7 @@ namespace GwiNews.Domain.Entities
 
         public News() { }
 
-        public News(Guid? id, NewsStatus? status, string? newsUrl, string? title, string? subtitle, string? newsBody, string? imageUrl, DateTime? publicationDate, Guid? userId, NewsCategory? newsCategory)
+        public News(Guid? id, NewsStatus? status, string? newsUrl, string title, string? subtitle, string newsBody, string? imageUrl, DateTime? publicationDate, Guid? userId, NewsCategory? newsCategory)
         {
             Id = id;
             Status = status;
@@ -57,7 +57,7 @@ namespace GwiNews.Domain.Entities
             this.NewsCategory = newsCategory;
         }
 
-        public void ValidateDomain(NewsStatus? status, string? newsUrl, string? title, string? subtitle, string? newsBody, string? imageUrl, DateTime? publicationDate, Guid? userId, NewsCategory? newsCategory)
+        public void ValidateDomain(NewsStatus? status, string? newsUrl, string title, string? subtitle, string newsBody, string? imageUrl, DateTime? publicationDate, Guid? userId, NewsCategory? newsCategory)
         {
             DomainExceptionValidation.When(string.IsNullOrWhiteSpace(newsUrl) || newsUrl.Length > 255, "A URL da notícia é obrigatória e não pode exceder 255 caracteres.");
             DomainExceptionValidation.When(string.IsNullOrWhiteSpace(title) || title.Length > 75, "O título da notícia é obrigatório e não pode exceder 75 caracteres.");
