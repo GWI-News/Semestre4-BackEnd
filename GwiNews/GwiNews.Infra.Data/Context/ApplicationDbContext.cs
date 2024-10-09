@@ -11,6 +11,8 @@ namespace GwiNews.Infra.Data.Context
 
         // DbSets para todas as entidades
         public DbSet<User> Users { get; set; }
+        public DbSet<UserWithNews> UsersWithNews { get; set; } // Adicionado DbSet para UserWithNews
+        public DbSet<News> News { get; set; } // Adicionado DbSet para News
         public DbSet<NewsCategory> NewsCategories { get; set; }
         public DbSet<Formation> Formations { get; set; }
         public DbSet<ProfessionalInformation> ProfessionalInformation { get; set; }
@@ -25,9 +27,17 @@ namespace GwiNews.Infra.Data.Context
             // Aplica as configurações de todas as entidades do assembly atual
             builder.ApplyConfigurationsFromAssembly(typeof(ApplicationDbContext).Assembly);
 
-            // Aqui você pode adicionar mais configurações personalizadas de modelagem
-            // Exemplo: Configurações específicas para uma entidade
-            // builder.Entity<Formation>().HasKey(f => f.Id);
+            // Configuração do relacionamento 1-N entre UserWithNews e News
+            builder.Entity<UserWithNews>()
+                .HasMany(u => u.News)            // UserWithNews tem muitas News
+                .WithOne(n => n.UserWithNews)     // Cada News pertence a um UserWithNews
+                .HasForeignKey(n => n.UserWithNewsId) // Configurando a chave estrangeira
+                .OnDelete(DeleteBehavior.Cascade); // Deletar as News ao deletar UserWithNews
+
+            // Garantir que o e-mail dos usuários seja único
+            builder.Entity<User>()
+                .HasIndex(u => u.Email)
+                .IsUnique();
         }
     }
 }
