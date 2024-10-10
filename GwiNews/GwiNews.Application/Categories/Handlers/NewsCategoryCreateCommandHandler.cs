@@ -1,15 +1,15 @@
 ﻿using GwiNews.Application.Category.Commands;
 using GwiNews.Domain.Entities;
-using Infra.Data.Repositories;
+using Interfaces;
 using MediatR;
 
 namespace GwiNews.Application.Categories.Handlers
 {
     public class NewsCategoryCreateCommandHandler : IRequestHandler<NewsCategoryCreateCommand, NewsCategory>
     {
-        private readonly NewsCategoryRepository _newsCategoryRepository;
+        private readonly INewsCategoryRepository _newsCategoryRepository;
 
-        public NewsCategoryCreateCommandHandler(NewsCategoryRepository newsCategoryRepository)
+        public NewsCategoryCreateCommandHandler(INewsCategoryRepository newsCategoryRepository)
         {
             _newsCategoryRepository = newsCategoryRepository;
         }

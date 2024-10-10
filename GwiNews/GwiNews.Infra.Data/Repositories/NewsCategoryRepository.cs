@@ -53,11 +53,14 @@ namespace Infra.Data.Repositories
             return newsCategory;
         }
 
-        /*public async Task<IEnumerable<NewsCategory>> GetNewsCategoriesWithSubcategories()
+        public async Task<IEnumerable<NewsCategory>> GetAllWithRelatedData()
         {
-            return await _context.NewsCategories
-                .Include(nc => nc.NewsSubcategories)
-                .ToListAsync();
-        }*/
+            return await _context.NewsCategories.Include(nc => nc.News).ToListAsync();    
+        }
+
+        public async Task<NewsCategory> GetByIdWithRelatedData(Guid id)
+        {
+            return await _context.NewsCategories.Include(nc => nc.News).FirstOrDefaultAsync(nc => nc.Id == id);
+        }
     }
 }
