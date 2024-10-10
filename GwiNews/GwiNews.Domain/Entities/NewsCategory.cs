@@ -4,13 +4,13 @@ namespace GwiNews.Domain.Entities
 {
     public class NewsCategory
     {
-        public Guid Id { get; set; } = Guid.NewGuid();
+        public Guid Id { get; private set; } = Guid.NewGuid();
 
         private string _name;
         public string Name
         {
             get => _name;
-            set
+            private set
             {
                 DomainExceptionValidation.When(string.IsNullOrEmpty(value), "O nome da categoria não pode ser vazio.");
                 DomainExceptionValidation.When(value.Length > 25, "O nome da categoria não pode exceder 25 caracteres.");
@@ -18,12 +18,18 @@ namespace GwiNews.Domain.Entities
             }
         }
 
-        public ICollection<News> News { get; set; } = new List<News>();
+        public ICollection<News> News { get; private set; } = new List<News>();
 
-        public NewsCategory(Guid id, string name)
+        public NewsCategory(string name)
         {
-            Id = Guid.NewGuid();
-            Name = name ?? throw new ArgumentNullException(nameof(name));
+            Name = name; 
+        }
+
+        public void UpdateName(string newName)
+        {
+            DomainExceptionValidation.When(string.IsNullOrEmpty(newName), "O nome da categoria não pode ser vazio.");
+            DomainExceptionValidation.When(newName.Length > 25, "O nome da categoria não pode exceder 25 caracteres.");
+            Name = newName;
         }
     }
 }
