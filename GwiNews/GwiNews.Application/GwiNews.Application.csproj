@@ -16,4 +16,9 @@
     <ProjectReference Include="..\GwiNews.Infra.Data\GwiNews.Infra.Data.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Category\Handlers\" />
+    <Folder Include="Category\Queries\" />
+  </ItemGroup>
+
 </Project>
