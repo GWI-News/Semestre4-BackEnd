@@ -13,6 +13,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\GwiNews.Domain\GwiNews.Domain.csproj" />
+    <ProjectReference Include="..\GwiNews.Infra.Data\GwiNews.Infra.Data.csproj" />
   </ItemGroup>
 
 </Project>
