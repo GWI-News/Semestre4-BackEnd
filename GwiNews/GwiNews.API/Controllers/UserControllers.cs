@@ -1,7 +1,6 @@
 ﻿using GwiNews.Application.DTOs;
 using GwiNews.Application.Services;
 using Microsoft.AspNetCore.Mvc;
-using System.Text;
 
 namespace GwiNews.API.Controllers
 {
