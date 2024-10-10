@@ -7,13 +7,13 @@ namespace GwiNews.Application.Interfaces
     {
         Task<IEnumerable<NewsDTO>> GetNews();
 
-        Task<NewsDTO> GetNewsById(Guid? id);
+        Task<NewsDTO> GetNewsById(Guid id);
 
         Task AddNews(NewsDTO newsDto);
 
         Task UpdateNews(NewsDTO newsDto);
 
-        Task RemoveNews(Guid? id);
+        Task RemoveNews(Guid id);
 
         /*
         Task<IEnumerable<NewsDTO>> GetNewsByStatus(NewsStatus status);
