@@ -24,6 +24,7 @@ namespace GwiNews.Domain.Entities
 
         public NewsCategory(string name)
         {
+            Id = Guid.NewGuid();
             Name = name;
         }
     }

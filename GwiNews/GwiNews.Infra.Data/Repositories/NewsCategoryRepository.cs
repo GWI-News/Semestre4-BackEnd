@@ -18,39 +18,49 @@ namespace Infra.Data.Repositories
         {
             return await _context.NewsCategories.FindAsync(id);
         }
+        
+        public async Task<IEnumerable<News>> GetNewsByCategory(Guid categoryId)
+        {
+            return await _context.News.Where(n => n.NewsCategoryId == categoryId).ToListAsync();
+        }
 
         public async Task<IEnumerable<NewsCategory>> GetAllNewsCategories()
         {
             return await _context.NewsCategories.ToListAsync();
         }
 
-        public async Task AddNewsCategory(NewsCategory newsCategory)
+        public async Task<NewsCategory> AddNewsCategory(NewsCategory newsCategory)
         {
-            _context.NewsCategories.Add(newsCategory);
+            await _context.NewsCategories.AddAsync(newsCategory);
             await _context.SaveChangesAsync();
+            return newsCategory;
         }
 
-        public async Task UpdateNewsCategory(NewsCategory newsCategory)
+        public async Task<NewsCategory> UpdateNewsCategory(NewsCategory newsCategory)
         {
             _context.NewsCategories.Update(newsCategory);
             await _context.SaveChangesAsync();
+            return newsCategory;
         }
 
-        public async Task DeleteNewsCategory(Guid id)
+        public async Task<NewsCategory> DeleteNewsCategory(Guid id)
         {
             var newsCategory = await _context.NewsCategories.FindAsync(id);
-            if (newsCategory != null)
-            {
-                _context.NewsCategories.Remove(newsCategory);
-                await _context.SaveChangesAsync();
-            }
+            if (newsCategory != null) return null;
+            
+            _context.NewsCategories.Remove(newsCategory);
+            await _context.SaveChangesAsync();
+            return newsCategory;
         }
 
-        /*public async Task<IEnumerable<NewsCategory>> GetNewsCategoriesWithSubcategories()
+        public async Task<IEnumerable<NewsCategory>> GetAllWithRelatedData()
         {
-            return await _context.NewsCategories
-                .Include(nc => nc.NewsSubcategories)
-                .ToListAsync();
-        }*/
+            return await _context.NewsCategories.Include(nc => nc.News).ToListAsync();    
+        }
+
+        public async Task<NewsCategory> GetByIdWithRelatedData(Guid id)
+        {
+            return await _context.NewsCategories.Include(nc => nc.News).FirstOrDefaultAsync(nc => nc.Id == id);
+        }
     }
 }

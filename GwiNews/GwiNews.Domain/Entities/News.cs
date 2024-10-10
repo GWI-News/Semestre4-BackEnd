@@ -29,6 +29,7 @@ namespace GwiNews.Domain.Entities
         public UserWithNews UserWithNews { get; set; }
 
         public NewsCategory NewsCategory { get; set; }
+        public Guid NewsCategoryId { get; set; }
 
         // Construtores
         public News() { }
