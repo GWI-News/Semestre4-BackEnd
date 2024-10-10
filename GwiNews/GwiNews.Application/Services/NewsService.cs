@@ -1,4 +1,4 @@
-﻿using AutoMapper;
+﻿/*using AutoMapper;
 using GwiNews.Application.DTOs;
 using GwiNews.Application.Interfaces;
 using GwiNews.Domain.Entities;
@@ -61,6 +61,6 @@ namespace GwiNews.Application.Services
         {
             var usersEntities = await _newsRepository.GetFavoritedByUsers(newsId);
             return _mapper.Map<IEnumerable<ReaderUserDTO>>(usersEntities);
-        } */
+        }
     }
-}
+}*/
