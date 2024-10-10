@@ -31,8 +31,6 @@ namespace GwiNews.Infra.IoC
 
             services.AddAutoMapper(typeof(DomainToDTOMappingProfile));
 
-            services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(typeof(UserCreateQueryHandler).Assembly));
-
             services.AddMediatR(cfg =>
             {
                 cfg.RegisterServicesFromAssembly(typeof(UserCreateQueryHandler).Assembly);
