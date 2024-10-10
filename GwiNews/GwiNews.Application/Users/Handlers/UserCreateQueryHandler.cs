@@ -1,15 +1,15 @@
 ﻿using GwiNews.Application.Users.Commands;
 using GwiNews.Domain.Entities;
-using GwiNews.Infra.Data.Repositories;
+using GwiNews.Domain.Interfaces;
 using MediatR;
 
 namespace GwiNews.Application.Users.Handlers
 {
-    public class UserCreateCommandHandler : IRequestHandler<UserCreateCommand, User>
+    public class UserCreateQueryHandler : IRequestHandler<UserCreateCommand, User>
     {
-        private readonly UserRepository _userRepository;
+        private readonly IUserRepository _userRepository;
 
-        public UserCreateCommandHandler(UserRepository userRepository)
+        public UserCreateQueryHandler(IUserRepository userRepository)
         {
             _userRepository = userRepository;
         }
