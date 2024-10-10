@@ -1,5 +1,9 @@
+using Microsoft.AspNetCore.Builder;
+using Microsoft.Extensions.DependencyInjection;
 using AutoMapper;
-using GwiNews.Application.Mappings;
+using GwiNews.Application.DTOs; // Verifique se isso está correto
+using GwiNews.Domain.Entities;  // Verifique se isso está correto
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
