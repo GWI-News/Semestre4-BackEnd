@@ -14,7 +14,7 @@ namespace GwiNews.Infra.Data.Repositories
             _userContext = context;
         }
 
-        public async Task<User> GetByIdUserAsync(Guid id)
+        public async Task<User> GetByIdUserAsync(Guid? id)
         {
             return await _userContext.Users.FindAsync(id);
         }
@@ -38,7 +38,7 @@ namespace GwiNews.Infra.Data.Repositories
             return user;
         }
 
-        public async Task<User> DeleteUserAsync(Guid id)
+        public async Task<User> DeleteUserAsync(Guid? id)
         {
             var user = await GetByIdUserAsync(id);
             if (user == null) return null;
