@@ -20,12 +20,10 @@ namespace GwiNews.Domain.Entities
 
         public ICollection<News> News { get; set; } = new List<News>();
 
-        //public ICollection<NewsSubcategory> NewsSubcategories { get; set; } = new List<NewsSubcategory>();
-
-        public NewsCategory(string name)
+        public NewsCategory(Guid id, string name)
         {
             Id = Guid.NewGuid();
-            Name = name;
+            Name = name ?? throw new ArgumentNullException(nameof(name));
         }
     }
 }
