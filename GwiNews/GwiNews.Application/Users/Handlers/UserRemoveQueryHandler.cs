@@ -1,20 +1,20 @@
 ﻿using GwiNews.Application.Users.Commands;
 using GwiNews.Domain.Entities;
-using GwiNews.Infra.Data.Repositories;
+using GwiNews.Domain.Interfaces;
 using MediatR;
 
 namespace GwiNews.Application.Users.Handlers
 {
-    public class UserUpdateCommandHandler : IRequestHandler<UserUpdateCommand, User>
+    public class UserRemoveQueryHandler : IRequestHandler<UserRemoveCommand, User>
     {
-        private readonly UserRepository _userRepository;
+        private readonly IUserRepository _userRepository;
 
-        public UserUpdateCommandHandler(UserRepository userRepository)
+        public UserRemoveQueryHandler(IUserRepository userRepository)
         {
             _userRepository = userRepository;
         }
 
-        public async Task<User> Handle(UserUpdateCommand request, CancellationToken cancellationToken)
+        public async Task<User> Handle(UserRemoveCommand request, CancellationToken cancellationToken)
         {
             var user = await _userRepository.GetByIdUserAsync(request.Id);
 
@@ -23,7 +23,7 @@ namespace GwiNews.Application.Users.Handlers
                 throw new ApplicationException($"User not found.");
             }
 
-            return await _userRepository.UpdateUserAsync(user);
+            return await _userRepository.DeleteUserAsync(user.Id);
         }
     }
 }
