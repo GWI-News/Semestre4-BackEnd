@@ -18,31 +18,31 @@ namespace GwiNews.Application.Services
         }
         public async Task<IEnumerable<NewsDTO>> GetNews()
         {
-            var newsEntity = await _newsRepository.GetAllNewsAsync();
+            var newsEntity = await _newsRepository.GetAllNews();
             return _mapper.Map<IEnumerable<NewsDTO>>(newsEntity);
         }
 
         public async Task<NewsDTO> GetNewsById(Guid? id)
         {
-            var newsEntity = await _newsRepository.GetNewsByIdAsync(id);
+            var newsEntity = await _newsRepository.GetNewsById(id);
             return _mapper.Map<NewsDTO>(newsEntity);
         }
         public async Task AddNews(NewsDTO newsDto)
         {
             var newsEntity = _mapper.Map<News>(newsDto);
-            await _newsRepository.AddNewsAsync(newsEntity);
+            await _newsRepository.AddNews(newsEntity);
         }
 
         public async Task RemoveNews(Guid? id)
         {
-            var newsEntity = await _newsRepository.GetNewsByIdAsync(id);
-            await _newsRepository.DeleteNewsAsync(newsEntity.Id);
+            var newsEntity = await _newsRepository.GetNewsById(id);
+            await _newsRepository.DeleteNews(newsEntity.Id);
         }
 
         public async Task UpdateNews(NewsDTO newsDto)
         {
             var newsEntity = _mapper.Map<News>(newsDto);
-            await _newsRepository.UpdateNewsAsync(newsEntity);
+            await _newsRepository.UpdateNews(newsEntity);
         }
 
         /*public async Task<IEnumerable<NewsDTO>> GetNewsByStatus(NewsStatus status)
