@@ -1,7 +1,7 @@
 ﻿using GwiNews.Domain.Entities;
 using GwiNews.Domain.Validation;
 
-namespace GwiNews.Tests
+namespace GwiNews.Domain.Test
 {
     public class ProfessionalSkillTest
     {
