@@ -1,6 +1,13 @@
+using Microsoft.AspNetCore.Builder;
+using Microsoft.Extensions.DependencyInjection;
+using AutoMapper;
+using GwiNews.Application.DTOs; // Verifique se isso está correto
+using GwiNews.Domain.Entities;  // Verifique se isso está correto
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+builder.Services.AddAutoMapper(typeof(DomainToDTOMappingProfile));
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
