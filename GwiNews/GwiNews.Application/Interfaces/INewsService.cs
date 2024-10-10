@@ -15,11 +15,10 @@ namespace GwiNews.Application.Interfaces
 
         Task RemoveNews(Guid id);
 
-        /*
-        Task<IEnumerable<NewsDTO>> GetNewsByStatus(NewsStatus status);
+        //Task<IEnumerable<NewsDTO>> GetNewsByStatus(NewsStatus status);
 
         Task<IEnumerable<NewsDTO>> GetNewsByCategory(Guid categoryId);
 
-        Task<IEnumerable<ReaderUserDTO>> GetFavoritedByUsers(Guid newsId); */
+        //Task<IEnumerable<ReaderUserDTO>> GetFavoritedByUsers(Guid newsId);
     }
 }
