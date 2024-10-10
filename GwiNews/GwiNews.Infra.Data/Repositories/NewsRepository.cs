@@ -1,9 +1,7 @@
-﻿using GwiNews.Infra.Data.Context;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using GwiNews.Domain.Entities;
+using GwiNews.Domain.Interfaces;
+using GwiNews.Infra.Data.Context;
+using Microsoft.EntityFrameworkCore;
 
 namespace GwiNews.Infra.Data.Repositories
 {
@@ -26,12 +24,12 @@ namespace GwiNews.Infra.Data.Repositories
             return await _context.News.FindAsync(id);
         }
 
-        public async Task<IEnumerable<News>> GetNewsByStatus(NewsStatus status)
+        /*public async Task<IEnumerable<News>> GetNewsByStatus(NewsStatus status)
         {
             return await _context.News
                 .Where(n => n.Status == status)
                 .ToListAsync();
-        }
+        }*/
 
         public async Task AddNews(News news)
         {
