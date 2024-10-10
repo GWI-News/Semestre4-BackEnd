@@ -9,16 +9,16 @@ namespace GwiNews.Domain.Test
         public void Should_Throw_Exception_When_Title_Is_Null()
         {
             var exception = Assert.Throws<DomainExceptionValidation>(() => new News(
-                Guid.NewGuid(),  // Supondo que um Guid é necessário
-                null,            // Título
-                "Conteúdo de Teste",
-                "http://example.com",  // URL de exemplo
-                null,   // Status de exemplo
-                null,            // Outros parâmetros opcionais
-                null,
-                DateTime.Now,
-                Guid.NewGuid(),
-                null));         // Categoria de exemplo
+                Guid.NewGuid(),  // id
+                null,            // status
+                "http://example.com",  // newsUrl
+                null,            // título (aqui deve ser null para o teste)
+                "Conteúdo de Teste", // subtitle
+                "Corpo da notícia",   // newsBody
+                null,             // imageUrl
+                DateTime.Now,    // publicationDate
+                Guid.NewGuid(),   // userId
+                null));          // newsCategory
 
             Assert.Equal("O título da notícia não pode ser vazio.", exception.Message);
         }
@@ -28,18 +28,19 @@ namespace GwiNews.Domain.Test
         {
             var exception = Assert.Throws<DomainExceptionValidation>(() => new News(
                 Guid.NewGuid(),
-                "",
-                "Conteúdo de Teste",
+                null, // status
                 "http://example.com",
-                null,
-                null,
-                null,
+                "",   // título
+                "Conteúdo de Teste", // subtitle
+                "Corpo da notícia",   // newsBody
+                null, // imageUrl
                 DateTime.Now,
                 Guid.NewGuid(),
                 null));
 
             Assert.Equal("O título da notícia não pode ser vazio.", exception.Message);
         }
+
 
         [Fact]
         public void Should_Throw_Exception_When_Title_Is_Too_Long()
@@ -48,11 +49,11 @@ namespace GwiNews.Domain.Test
 
             var exception = Assert.Throws<DomainExceptionValidation>(() => new News(
                 Guid.NewGuid(),
-                longTitle,
-                "Conteúdo de Teste",
+                null,
                 "http://example.com",
+                longTitle,
                 null,
-                null,
+                "Corpo da notícia",
                 null,
                 DateTime.Now,
                 Guid.NewGuid(),
@@ -66,10 +67,10 @@ namespace GwiNews.Domain.Test
         {
             var exception = Assert.Throws<DomainExceptionValidation>(() => new News(
                 Guid.NewGuid(),
-                "Título de Teste",
                 null,
                 "http://example.com",
-                null,
+                "Titulo de Teste",
+                "Subtitulo",
                 null,
                 null,
                 DateTime.Now,
@@ -84,11 +85,11 @@ namespace GwiNews.Domain.Test
         {
             var exception = Assert.Throws<DomainExceptionValidation>(() => new News(
                 Guid.NewGuid(),
-                "Título de Teste",
-                "",
+                null,
                 "http://example.com",
-                null,
-                null,
+                "titulo",
+                "subtitulo",
+                "",
                 null,
                 DateTime.Now,
                 Guid.NewGuid(),
