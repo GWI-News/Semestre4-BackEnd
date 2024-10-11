@@ -9,7 +9,7 @@ namespace GwiNews.Application.Mappings
         public DomainToDTOMappingProfile()
         {
             CreateMap<User, UserDTO>().ReverseMap();
-            CreateMap<News, NewsDTO>().ReverseMap();
+            CreateMap<GwiNews.Domain.Entities.News, NewsDTO>().ReverseMap();
             CreateMap<NewsCategory, NewsCategoryDTO>().ReverseMap();
         }
     }
