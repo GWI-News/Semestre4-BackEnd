@@ -6,15 +6,15 @@ namespace GwiNews.Infra.Data.Context
     public class ApplicationDbContext : DbContext
     {
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
-            : base(options) { }
-
+            : base(options)
+        { }
         public DbSet<User> Users { get; set; }
-        public DbSet<UserWithNews> UsersWithNews { get; set; }
-        public DbSet<News> News { get; set; }
+        //public DbSet<UserWithNews> UsersWithNews { get; set; }
+        //public DbSet<News> News { get; set; }
         public DbSet<NewsCategory> NewsCategories { get; set; }
-        public DbSet<Formation> Formations { get; set; }
-        public DbSet<ProfessionalInformation> ProfessionalInformation { get; set; }
-        public DbSet<ProfessionalSkill> ProfessionalSkills { get; set; }
+        //public DbSet<Formation> Formations { get; set; }
+        //public DbSet<ProfessionalInformation> ProfessionalInformation { get; set; }
+        //public DbSet<ProfessionalSkill> ProfessionalSkills { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {

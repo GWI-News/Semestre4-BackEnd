@@ -19,10 +19,10 @@ namespace Infra.Data.Repositories
             return await _context.NewsCategories.FindAsync(id);
         }
         
-        public async Task<IEnumerable<News>> GetNewsByCategory(Guid categoryId)
-        {
-            return await _context.News.Where(n => n.NewsCategoryId == categoryId).ToListAsync();
-        }
+        //public async Task<IEnumerable<News>> GetNewsByCategory(Guid categoryId)
+        //{
+        //    return await _context.News.Where(n => n.NewsCategoryId == categoryId).ToListAsync();
+        //}
 
         public async Task<IEnumerable<NewsCategory>> GetAllNewsCategories()
         {
@@ -46,7 +46,7 @@ namespace Infra.Data.Repositories
         public async Task<NewsCategory> DeleteNewsCategory(Guid id)
         {
             var newsCategory = await _context.NewsCategories.FindAsync(id);
-            if (newsCategory != null) return null;
+            if (newsCategory == null) return null;
             
             _context.NewsCategories.Remove(newsCategory);
             await _context.SaveChangesAsync();

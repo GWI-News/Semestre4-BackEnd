@@ -20,7 +20,7 @@ namespace GwiNews.Application.Interfaces
 
         Task RemoveNewsCategory(Guid id);
 
-        Task<IEnumerable<NewsDTO>> GetNewsByCategory(Guid categoryId);
+        //Task<IEnumerable<NewsDTO>> GetNewsByCategory(Guid categoryId);
 
         //Task<IEnumerable<NewsSubcategoryDTO>> GetNewsSubcategoriesByCategory(Guid categoryId);
     }

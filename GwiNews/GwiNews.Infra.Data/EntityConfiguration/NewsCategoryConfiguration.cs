@@ -19,7 +19,7 @@ namespace EntityConfiguration
 
             builder.HasMany(n => n.News)
                    .WithOne(news => news.NewsCategory)
-                   .HasForeignKey(news => news.NewsCategory.Id);
+                   .HasForeignKey(news => news.NewsCategoryId);
 
             /*builder.HasMany(nc => nc.NewsSubcategories)
                    .WithOne(subcategory => subcategory.NewsCategory)

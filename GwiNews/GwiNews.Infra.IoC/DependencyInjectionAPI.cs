@@ -16,7 +16,7 @@ namespace GwiNews.Infra.IoC
 {
     public static class DependencyInjectionAPI
     {
-        public static IServiceCollection AddInfrastructure(this IServiceCollection services,
+        public static IServiceCollection AddInfrastructureAPI(this IServiceCollection services,
             IConfiguration configuration)
         {
             services.AddDbContext<ApplicationDbContext>(options =>

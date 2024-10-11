@@ -1,5 +1,5 @@
 ﻿using GwiNews.Application.DTOs;
-using GwiNews.Application.Services;
+using GwiNews.Application.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
 namespace GwiNews.API.Controllers
@@ -8,9 +8,9 @@ namespace GwiNews.API.Controllers
     [ApiController]
     public class UsersController : ControllerBase
     {
-        private readonly UserService _userService;
+        private readonly IUserService _userService;
 
-        public UsersController(UserService userService)
+        public UsersController(IUserService userService)
         {
             _userService = userService;
         }

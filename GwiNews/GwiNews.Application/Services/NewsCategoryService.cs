@@ -55,10 +55,10 @@ namespace GwiNews.Application.Services
             await _newsCategoryRepository.UpdateNewsCategory(categoryEntity);
         }
 
-        public async Task<IEnumerable<NewsDTO>> GetNewsByCategory(Guid categoryId)
-        {
-            var newsEntities = await _newsCategoryRepository.GetNewsByCategory(categoryId);
-            return _mapper.Map<IEnumerable<NewsDTO>>(newsEntities);
-        }
+        //public async Task<IEnumerable<NewsDTO>> GetNewsByCategory(Guid categoryId)
+        //{
+        //    var newsEntities = await _newsCategoryRepository.GetNewsByCategory(categoryId);
+        //    return _mapper.Map<IEnumerable<NewsDTO>>(newsEntities);
+        //}
     }
 }
