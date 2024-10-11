@@ -2,7 +2,7 @@
 using MediatR;
 
 
-namespace Commands
+namespace GwiNews.Application.News.Commands
 {
     public abstract class NewsCommands : IRequest<News>
     {

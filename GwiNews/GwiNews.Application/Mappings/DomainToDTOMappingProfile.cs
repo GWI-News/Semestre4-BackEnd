@@ -2,7 +2,7 @@
 using GwiNews.Application.DTOs;
 using GwiNews.Domain.Entities;
 
-namespace Mappings
+namespace GwiNews.Application.Mappings
 {
     public class DomainToDTOMappingProfile : Profile
     {
