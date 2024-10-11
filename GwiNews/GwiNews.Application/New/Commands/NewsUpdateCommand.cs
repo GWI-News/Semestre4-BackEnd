@@ -1,4 +1,4 @@
-﻿namespace GwiNews.Application.News.Commands
+﻿namespace GwiNews.Application.New.Commands
 {
     internal class NewsUpdateCommand : NewsCommands
     {
