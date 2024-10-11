@@ -2,9 +2,9 @@
 using MediatR;
 
 
-namespace GwiNews.Application.News.Commands
+namespace Commands
 {
-    public abstract class NewsCommands : IRequest<GwiNews.Domain.Entities.News>
+    public abstract class NewsCommands : IRequest<News>
     {
         public NewsStatus Status { get; set; }
         public string NewsUrl { get; set; }
