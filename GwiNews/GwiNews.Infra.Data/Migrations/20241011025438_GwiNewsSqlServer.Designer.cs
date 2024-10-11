@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace GwiNews.Infra.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20241011024835_GwiNewsSqlServer")]
+    [Migration("20241011025438_GwiNewsSqlServer")]
     partial class GwiNewsSqlServer
     {
         /// <inheritdoc />
