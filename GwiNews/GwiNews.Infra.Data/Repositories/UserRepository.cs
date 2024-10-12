@@ -53,22 +53,12 @@ namespace GwiNews.Infra.Data.Repositories
             return await _userContext.Users.FirstOrDefaultAsync(u => u.Email == email);
         }
 
-        public async Task<User> ActivateUserAsync(Guid id)
+        public async Task<User> StatusChangeUserAsync(Guid id)
         {
             var user = await GetByIdUserAsync(id);
             if (user == null) return null;
 
-            user.Status = true;
-            await UpdateUserAsync(user);
-            return user;
-        }
-
-        public async Task<User> DeactivateUserAsync(Guid id)
-        {
-            var user = await GetByIdUserAsync(id);
-            if (user == null) return null;
-
-            user.Status = false;
+            user.ActiveUser(user.Status);
             await UpdateUserAsync(user);
             return user;
         }

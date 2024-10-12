@@ -16,7 +16,7 @@ namespace GwiNews.Application.Categories.Handlers
 
         public async Task<NewsCategory> Handle(NewsCategoryCreateCommand request, CancellationToken cancellationToken)
         {
-            var category = new NewsCategory(request.Name);
+            var category = new NewsCategory(request.Name, null);
 
             if (category == null)
             {

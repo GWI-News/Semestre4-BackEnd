@@ -23,8 +23,6 @@ namespace GwiNews.Application.Categories.Handlers
                 throw new ApplicationException("Category not found.");
             }
 
-            category.UpdateName(request.Name);
-
             return await _newsCategoryRepository.UpdateNewsCategory(category);
         }
     }

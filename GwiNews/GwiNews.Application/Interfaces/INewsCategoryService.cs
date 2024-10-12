@@ -12,13 +12,13 @@ namespace GwiNews.Application.Interfaces
     {
         Task<IEnumerable<NewsCategoryDTO>> GetNewsCategories();
 
-        Task<NewsCategoryDTO> GetNewsCategoryById(Guid id);
+        Task<NewsCategoryDTO> GetNewsCategoryById(Guid? id);
 
         Task AddNewsCategory(NewsCategoryDTO categoryDto);
 
         Task UpdateNewsCategory(NewsCategoryDTO categoryDto);
 
-        Task RemoveNewsCategory(Guid id);
+        Task RemoveNewsCategory(Guid? id);
 
         //Task<IEnumerable<NewsDTO>> GetNewsByCategory(Guid categoryId);
 

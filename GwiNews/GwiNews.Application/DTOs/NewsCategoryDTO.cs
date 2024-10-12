@@ -11,11 +11,11 @@ namespace GwiNews.Application.DTOs
     public class NewsCategoryDTO
     {
         [Required(ErrorMessage = "O ID é obrigatório.")]
-        public Guid Id { get; set; }
+        public Guid? Id { get; set; }
 
         [Required(ErrorMessage = "O nome da categoria é obrigatório.")]
         [MaxLength(25, ErrorMessage = "O nome da categoria pode ter no máximo 25 caracteres.")]
         [DisplayName("Nome")]
-        public string Name { get; set; }
+        public string? Name { get; set; }
     }
 }

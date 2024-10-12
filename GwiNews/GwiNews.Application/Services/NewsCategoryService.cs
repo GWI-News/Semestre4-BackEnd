@@ -34,13 +34,13 @@ namespace GwiNews.Application.Services
             return _mapper.Map<IEnumerable<NewsCategoryDTO>>(categoryEntities);
         }
 
-        public async Task<NewsCategoryDTO> GetNewsCategoryById(Guid id)
+        public async Task<NewsCategoryDTO> GetNewsCategoryById(Guid? id)
         {
             var categoryEntity = await _newsCategoryRepository.GetNewsCategoryById(id);
             return _mapper.Map<NewsCategoryDTO>(categoryEntity);
         }
 
-        public async Task RemoveNewsCategory(Guid id)
+        public async Task RemoveNewsCategory(Guid? id)
         {
             var categoryEntity = await _newsCategoryRepository.GetNewsCategoryById(id);
             if (categoryEntity != null)

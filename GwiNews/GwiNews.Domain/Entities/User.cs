@@ -36,6 +36,14 @@ namespace GwiNews.Domain.Entities
             Id = id;
         }
 
+        public void ActiveUser(bool? status)
+        {
+            if ((bool)!status)
+                Status = true;
+            else
+                Status = false;
+        }
+
         private void ValidateDomain(UserRole? role, string? completeName, string? email, string? password, bool? status)
         {
             DomainExceptionValidation.When(role == null, "O papel do usuário é obrigatório.");
