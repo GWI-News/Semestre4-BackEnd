@@ -10,7 +10,7 @@
             News = news;
         }
 
-        public UserWithNews(Guid? id, UserRole? role, string? completeName, string? email, string? password, bool? status, ICollection<News> news)
+        public UserWithNews(Guid? id, UserRole? role, string? completeName, string? email, string? password, bool? status, ICollection<News>? news)
             : base(id, role, completeName, email, password, status)
         {
             News = news;
