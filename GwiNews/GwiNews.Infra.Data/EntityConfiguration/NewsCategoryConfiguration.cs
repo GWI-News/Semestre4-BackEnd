@@ -17,10 +17,6 @@ namespace EntityConfiguration
                    .IsRequired()
                    .HasMaxLength(25);
 
-            builder.HasMany(n => n.News)
-                   .WithOne(news => news.NewsCategory)
-                   .HasForeignKey(news => news.NewsCategoryId);
-
             /*builder.HasMany(nc => nc.NewsSubcategories)
                    .WithOne(subcategory => subcategory.NewsCategory)
                    .HasForeignKey(subcategory => subcategory.NewsCategory.Id);*/

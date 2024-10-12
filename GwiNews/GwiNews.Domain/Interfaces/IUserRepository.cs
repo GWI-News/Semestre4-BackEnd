@@ -10,7 +10,6 @@ namespace GwiNews.Domain.Interfaces
         Task<User> UpdateUserAsync(User user);
         Task<User> DeleteUserAsync(Guid? id);
         Task<User> GetByEmailUserAsync(string email);
-        Task<User> ActivateUserAsync(Guid id);
-        Task<User> DeactivateUserAsync(Guid id);
+        Task<User> StatusChangeUserAsync(Guid id);
     }
 }

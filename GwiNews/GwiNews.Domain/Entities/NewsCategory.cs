@@ -1,35 +1,40 @@
 ﻿using GwiNews.Domain.Validation;
+using System.ComponentModel.DataAnnotations;
 
 namespace GwiNews.Domain.Entities
 {
     public class NewsCategory
     {
-        public Guid Id { get; private set; } = Guid.NewGuid();
+        [Key]
+        public Guid? Id { get; private set; }
+        [Required]
+        public string? Name { get; private set; }
+        public ICollection<News>? News { get; private set; }
+        //public ICollection<NewsSubcategory>? NewsSubcategories { get; private set; }
 
-        private string _name;
-        public string Name
+        public NewsCategory(Guid? id, string? name, ICollection<News>? news)
         {
-            get => _name;
-            private set
+            if (id == null || id == Guid.Empty)
             {
-                DomainExceptionValidation.When(string.IsNullOrEmpty(value), "O nome da categoria não pode ser vazio.");
-                DomainExceptionValidation.When(value.Length > 25, "O nome da categoria não pode exceder 25 caracteres.");
-                _name = value;
+                throw new DomainExceptionValidation("Id deve ser um GUID válido e não pode ser vazio ou nulo.");
             }
+            ValidateDomain(name);
+            Id = id;
+            News = news;
         }
 
-        public ICollection<News> News { get; private set; } = new List<News>();
-
-        public NewsCategory(string name)
+        public NewsCategory(string? name, ICollection<News>? news)
         {
-            Name = name; 
+            ValidateDomain(name);
+            News = news;
         }
 
-        public void UpdateName(string newName)
+        private void ValidateDomain(string? name)
         {
-            DomainExceptionValidation.When(string.IsNullOrEmpty(newName), "O nome da categoria não pode ser vazio.");
-            DomainExceptionValidation.When(newName.Length > 25, "O nome da categoria não pode exceder 25 caracteres.");
-            Name = newName;
+            DomainExceptionValidation.When(string.IsNullOrWhiteSpace(name), "O nome da categoria é obrigatório.");
+            DomainExceptionValidation.When(name!.Length > 25, "O nome da categoria não pode exceder 25 caracteres.");
+
+            Name = name;
         }
     }
 }

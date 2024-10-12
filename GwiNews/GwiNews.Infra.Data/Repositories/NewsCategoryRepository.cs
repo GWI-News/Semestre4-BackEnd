@@ -14,7 +14,7 @@ namespace Infra.Data.Repositories
             _context = context;
         }
 
-        public async Task<NewsCategory> GetNewsCategoryById(Guid id)
+        public async Task<NewsCategory> GetNewsCategoryById(Guid? id)
         {
             return await _context.NewsCategories.FindAsync(id);
         }
@@ -43,7 +43,7 @@ namespace Infra.Data.Repositories
             return newsCategory;
         }
 
-        public async Task<NewsCategory> DeleteNewsCategory(Guid id)
+        public async Task<NewsCategory> DeleteNewsCategory(Guid? id)
         {
             var newsCategory = await _context.NewsCategories.FindAsync(id);
             if (newsCategory == null) return null;
@@ -58,7 +58,7 @@ namespace Infra.Data.Repositories
             return await _context.NewsCategories.Include(nc => nc.News).ToListAsync();    
         }
 
-        public async Task<NewsCategory> GetByIdWithRelatedData(Guid id)
+        public async Task<NewsCategory> GetByIdWithRelatedData(Guid? id)
         {
             return await _context.NewsCategories.Include(nc => nc.News).FirstOrDefaultAsync(nc => nc.Id == id);
         }
