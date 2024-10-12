@@ -1,22 +1,25 @@
 ﻿using GwiNews.Domain.Validation;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
-using System.Collections.Generic;
 
 namespace GwiNews.Domain.Entities
 {
     public class User
     {
-        public Guid? Id { get; set; }
+        [Key]
+        public Guid? Id { get; private set; }
         [Required]
-        public UserRole? Role { get; set; }
+        public UserRole? Role { get; private set; }
         [Required]
-        public string? CompleteName { get; set; }
+        public string? CompleteName { get; private set; }
         [Required]
-        public string? Email { get; set; }
+        [EmailAddress]
+        public string? Email { get; private set; }
         [Required]
-        public string? Password { get; set; }
-        [Required]
-        public bool? Status { get; set; }
+        [PasswordPropertyText]
+        public string? Password { get; private set; }
+        [Required]        
+        public bool? Status { get; private set; }
 
         public User(UserRole? role, string? completeName, string? email, string? password, bool? status)
         {
