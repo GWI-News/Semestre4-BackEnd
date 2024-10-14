@@ -13,7 +13,7 @@ namespace GwiNews.Domain.Entities
         public ICollection<News>? News { get; private set; }
         public ICollection<NewsSubcategory>? NewsSubcategories { get; private set; }
 
-        public NewsCategory(Guid? id, string? name, ICollection<News>? news)
+        public NewsCategory(Guid? id, string? name, ICollection<News>? news, ICollection<NewsSubcategory>? newsSubcategories)
         {
             if (id == null || id == Guid.Empty)
             {
@@ -22,12 +22,14 @@ namespace GwiNews.Domain.Entities
             ValidateDomain(name);
             Id = id;
             News = news;
+            NewsSubcategories = newsSubcategories;
         }
 
-        public NewsCategory(string? name, ICollection<News>? news)
+        public NewsCategory(string? name, ICollection<News>? news, ICollection<NewsSubcategory>? newsSubcategories)
         {
             ValidateDomain(name);
             News = news;
+            NewsSubcategories = newsSubcategories;
         }
 
         private void ValidateDomain(string? name)

@@ -14,7 +14,13 @@ namespace GwiNews.Domain.Entities
         public NewsCategory? NewsCategory { get; private set; }
         public ICollection<News>? News { get; private set; }
 
-       public NewsSubcategory(Guid? id, string? name, NewsCategory? newsCategory, ICollection<News>? news)
+        public NewsSubcategory(string? name, NewsCategory? newsCategory, ICollection<News>? news)
+        {
+            Validation(name, newsCategory);
+            News = news;
+        }
+
+        public NewsSubcategory(Guid? id, string? name, NewsCategory? newsCategory, ICollection<News>? news)
        {
             if (id == null || id == Guid.Empty)
             {
@@ -22,6 +28,7 @@ namespace GwiNews.Domain.Entities
             }
             Validation(name, newsCategory);
             Id = id;
+            News = news;
         }
        
        private void Validation(string? name, NewsCategory? newsCategory)
