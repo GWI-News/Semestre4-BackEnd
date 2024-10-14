@@ -18,14 +18,19 @@ namespace GwiNews.Domain.Entities
         [Required]
         public NewsStatus? Status { get; private set; }
         [Required]
+        [StringLength(255)]
         public string? NewsUrl { get; private set; }
         [Required]
+        [StringLength(75)]
         public string? Title { get; private set; }
         [Required]
+        [StringLength(255)]
         public string? Subtitle { get; private set; }
         [Required]
+        [StringLength(65535)]
         public string? NewsBody { get; private set; }
         [Required]
+        [StringLength(555)]
         public string? ImageUrl { get; private set; }
         [Required]
         public DateTime? PublicationDate { get; private set; }
@@ -35,11 +40,10 @@ namespace GwiNews.Domain.Entities
         public UserWithNews? Editor { get; private set; }
         [Required]
         public NewsCategory? NewsCategory { get; private set; }
-        //[Required]
-        //public ICOllection<NewsSubcategory>? NewsSubcategories { get; private set; }
-        //public ICollection<UserReader>? FavoritedBy { get; private set; }
+        public ICollection<NewsSubcategory>? NewsSubcategories { get; private set; }
+        public ICollection<ReaderUser>? FavoritedBy { get; private set; }
 
-        public News(Guid? id, NewsStatus? newsStatus, string? newsUrl, string? title, string? subtitle, string? newsBody, string? imageUrl, DateTime? publicationDate, UserWithNews? author, UserWithNews? editor, NewsCategory? newsCategory)
+        public News(Guid? id, NewsStatus? newsStatus, string? newsUrl, string? title, string? subtitle, string? newsBody, string? imageUrl, DateTime? publicationDate, UserWithNews? author, UserWithNews? editor, NewsCategory? newsCategory, ICollection<NewsSubcategory>? newsSubcategories, ICollection<ReaderUser>? favoritedBy)
         {
             if (id == null || id == Guid.Empty)
             {
@@ -47,11 +51,15 @@ namespace GwiNews.Domain.Entities
             }
             ValidateDomain(newsStatus, newsUrl, title, subtitle, newsBody, imageUrl, publicationDate, author, editor, newsCategory);
             Id = id;
+            NewsSubcategories = newsSubcategories;
+            FavoritedBy = favoritedBy;
         }
 
-        public News(NewsStatus? newsStatus, string? newsUrl, string? title, string? subtitle, string? newsBody, string? imageUrl, DateTime? publicationDate, UserWithNews? author, UserWithNews? editor, NewsCategory? newsCategory)
+        public News(NewsStatus? newsStatus, string? newsUrl, string? title, string? subtitle, string? newsBody, string? imageUrl, DateTime? publicationDate, UserWithNews? author, UserWithNews? editor, NewsCategory? newsCategory, ICollection<NewsSubcategory>? newsSubcategories, ICollection<ReaderUser>? favoritedBy)
         {
             ValidateDomain(newsStatus, newsUrl, title, subtitle, newsBody, imageUrl, publicationDate, author, editor, newsCategory);
+            NewsSubcategories = newsSubcategories;
+            FavoritedBy = favoritedBy;
         }
 
         private void ValidateDomain(NewsStatus? newsStatus, string? newsUrl, string? title, string? subtitle, string? newsBody, string? imageUrl, DateTime? publicationDate, UserWithNews? author, UserWithNews? editor, NewsCategory? newsCategory)

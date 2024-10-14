@@ -8,9 +8,10 @@ namespace GwiNews.Domain.Entities
         [Key]
         public Guid? Id { get; private set; }
         [Required]
+        [StringLength(25)]
         public string? Name { get; private set; }
         public ICollection<News>? News { get; private set; }
-        //public ICollection<NewsSubcategory>? NewsSubcategories { get; private set; }
+        public ICollection<NewsSubcategory>? NewsSubcategories { get; private set; }
 
         public NewsCategory(Guid? id, string? name, ICollection<News>? news)
         {

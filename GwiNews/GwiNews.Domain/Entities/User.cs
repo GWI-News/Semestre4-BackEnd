@@ -11,12 +11,15 @@ namespace GwiNews.Domain.Entities
         [Required]
         public UserRole? Role { get; private set; }
         [Required]
+        [StringLength(255)]
         public string? CompleteName { get; private set; }
         [Required]
         [EmailAddress]
+        [StringLength(255)]
         public string? Email { get; private set; }
         [Required]
         [PasswordPropertyText]
+        [StringLength(255)]
         public string? Password { get; private set; }
         [Required]        
         public bool? Status { get; private set; }
