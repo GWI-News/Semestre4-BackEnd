@@ -1,78 +1,111 @@
-﻿//using GwiNews.Domain.Entities;
-//using GwiNews.Domain.Validation;
+﻿using GwiNews.Domain.Entities;
+using GwiNews.Domain.Validation;
 
-//namespace GwiNews.Domain.Test
-//{
-//    public class ProfessionalSkillTest
-//    {
-//        [Fact]
-//        public void Constructor_ShouldInitializeWithValidParameters()
-//        {
-//            // Arrange
-//            var skill1 = "C# Programming";
-//            var skill2 = "SQL Database";
-//            var skill3 = "Web Development";
-//            var skill4 = "Machine Learning";
+namespace GwiNews.Domain.Test
+{
+    public class ProfessionalSkillTest
+    {
+        private ReaderUser GetValidReaderUser()
+        {
+            return new ReaderUser(
+                role: UserRole.Leitor,
+                completeName: "Valid User",
+                email: "valid.email@example.com",
+                password: "validPassword123",
+                status: true,
+                favoritedNews: null,
+                professionalInformations: null,
+                formations: null,
+                professionalSkills: null
+            );
+        }
 
-//            // Act
-//            var professionalSkill = new ProfessionalSkill(skill1, skill2, skill3, skill4);
+        [Fact]
+        public void Instantiate_ValidProfessionalSkill_NoExceptions()
+        {
+            // Arrange
+            var readerUser = GetValidReaderUser();
 
-//            // Assert
-//            Assert.NotNull(professionalSkill);
-//            Assert.Equal(skill1, professionalSkill.Skill1);
-//            Assert.Equal(skill2, professionalSkill.Skill2);
-//            Assert.Equal(skill3, professionalSkill.Skill3);
-//            Assert.Equal(skill4, professionalSkill.Skill4);
-//        }
+            // Act
+            var professionalSkill = new ProfessionalSkill("Skill 1", "Skill 2", "Skill 3", "Skill 4", readerUser);
 
-//        [Fact]
-//        public void Constructor_ShouldThrowException_WhenSkill1IsEmpty()
-//        {
-//            // Act & Assert
-//            var exception = Assert.Throws<DomainExceptionValidation>(() =>
-//                new ProfessionalSkill(string.Empty, "Skill 2", "Skill 3", "Skill 4")
-//            );
-//            Assert.Equal("A Skill1 é obrigatória.", exception.Message);
-//        }
+            // Assert
+            Assert.NotNull(professionalSkill);
+            Assert.Equal("Skill 1", professionalSkill.Skill1);
+            Assert.Equal("Skill 2", professionalSkill.Skill2);
+            Assert.Equal("Skill 3", professionalSkill.Skill3);
+            Assert.Equal("Skill 4", professionalSkill.Skill4);
+            Assert.Equal(readerUser, professionalSkill.ReaderUser);
+        }
 
-//        [Fact]
-//        public void Constructor_ShouldThrowException_WhenSkill1ExceedsMaxLength()
-//        {
-//            // Arrange
-//            var longSkill = new string('a', 56); // 56 characters long
+        [Fact]
+        public void Instantiate_ProfessionalSkill_WithNullOrEmptyId_ShouldThrowDomainException()
+        {
+            // Arrange
+            var readerUser = GetValidReaderUser();
+            var invalidId = Guid.Empty;
 
-//            // Act & Assert
-//            var exception = Assert.Throws<DomainExceptionValidation>(() =>
-//                new ProfessionalSkill(longSkill, "Skill 2", "Skill 3", "Skill 4")
-//            );
-//            Assert.Equal("A Skill1 não pode exceder 55 caracteres.", exception.Message);
-//        }
+            // Act & Assert
+            var exception = Assert.Throws<DomainExceptionValidation>(() =>
+                new ProfessionalSkill(invalidId, "Skill 1", "Skill 2", "Skill 3", "Skill 4", readerUser));
 
-//        [Fact]
-//        public void Update_ShouldUpdateProfessionalSkill()
-//        {
-//            // Arrange
-//            var skill1 = "C# Programming";
-//            var skill2 = "SQL Database";
-//            var skill3 = "Web Development";
-//            var skill4 = "Machine Learning";
+            Assert.Equal("Id deve ser um GUID válido e não pode ser vazio ou nulo.", exception.Message);
+        }
 
-//            var professionalSkill = new ProfessionalSkill(skill1, skill2, skill3, skill4);
+        [Fact]
+        public void Instantiate_ProfessionalSkill_WithInvalidSkillLength_ShouldThrowDomainException()
+        {
+            // Arrange
+            var readerUser = GetValidReaderUser();
+            var longSkill = new string('A', 56);
 
-//            // New values for update
-//            var newSkill1 = "Python Programming";
-//            var newSkill2 = "Data Analysis";
-//            var newSkill3 = "Cloud Computing";
-//            var newSkill4 = "AI Development";
+            // Act & Assert
+            var exception = Assert.Throws<DomainExceptionValidation>(() =>
+                new ProfessionalSkill(longSkill, "Skill 2", "Skill 3", "Skill 4", readerUser));
 
-//            // Act
-//            professionalSkill.Update(professionalSkill.Id, newSkill1, newSkill2, newSkill3, newSkill4);
+            Assert.Equal("A Habilidade 1 é obrigatória e deve ter no máximo 55 caracteres.", exception.Message);
+        }
 
-//            // Assert
-//            Assert.Equal(newSkill1, professionalSkill.Skill1);
-//            Assert.Equal(newSkill2, professionalSkill.Skill2);
-//            Assert.Equal(newSkill3, professionalSkill.Skill3);
-//            Assert.Equal(newSkill4, professionalSkill.Skill4);
-//        }
-//    }
-//}
+        [Fact]
+        public void Instantiate_ProfessionalSkill_WithNullSkill_ShouldThrowDomainException()
+        {
+            // Arrange
+            var readerUser = GetValidReaderUser();
+
+            // Act & Assert
+            var exception = Assert.Throws<DomainExceptionValidation>(() =>
+                new ProfessionalSkill(null, "Skill 2", "Skill 3", "Skill 4", readerUser));
+
+            Assert.Equal("A Habilidade 1 é obrigatória e deve ter no máximo 55 caracteres.", exception.Message);
+        }
+
+        [Fact]
+        public void Instantiate_ProfessionalSkill_WithNullReaderUser_ShouldThrowDomainException()
+        {
+            // Act & Assert
+            var exception = Assert.Throws<DomainExceptionValidation>(() =>
+                new ProfessionalSkill("Skill 1", "Skill 2", "Skill 3", "Skill 4", null));
+
+            Assert.Equal("O Usuário Leitor é obrigatório.", exception.Message);
+        }
+
+        [Fact]
+        public void Instantiate_ProfessionalSkill_WithValidId_ShouldWorkCorrectly()
+        {
+            // Arrange
+            var readerUser = GetValidReaderUser();
+            var validId = Guid.NewGuid();
+
+            // Act
+            var professionalSkill = new ProfessionalSkill(validId, "Skill 1", "Skill 2", "Skill 3", "Skill 4", readerUser);
+
+            // Assert
+            Assert.Equal(validId, professionalSkill.Id);
+            Assert.Equal("Skill 1", professionalSkill.Skill1);
+            Assert.Equal("Skill 2", professionalSkill.Skill2);
+            Assert.Equal("Skill 3", professionalSkill.Skill3);
+            Assert.Equal("Skill 4", professionalSkill.Skill4);
+            Assert.Equal(readerUser, professionalSkill.ReaderUser);
+        }
+    }
+}
