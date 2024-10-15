@@ -1,90 +1,135 @@
-﻿//using GwiNews.Domain.Entities;
-//using GwiNews.Domain.Validation;
+﻿using GwiNews.Domain.Entities;
+using GwiNews.Domain.Validation;
 
-//namespace GwiNews.Domain.Test
-//{
-//    public class ProfessionalInformationTest
-//    {
-//        [Fact]
-//        public void Constructor_ShouldInitializeWithValidParameters()
-//        {
-//            // Arrange
-//            var completeName = "John Doe";
-//            var telefone = "+1234567890";
-//            var email = "johndoe@example.com";
-//            var linkedin = "https://linkedin.com/in/johndoe";
-//            var enderecoCompleto = "123 Main St, Anytown, USA";
-//            var objetivo = "To obtain a challenging position.";
-//            var imgUrl = "https://example.com/image.jpg";
+namespace GwiNews.Domain.Test
+{
+    public class ProfessionalInformationTest
+    {
+        [Fact]
+        public void Constructor_WithValidParameters_ShouldCreateProfessionalInformation()
+        {
+            // Arrange
+            var readerUser = CreateReaderUser();
 
-//            // Act
-//            var professionalInfo = new ProfessionalInformation(completeName, telefone, email, linkedin, enderecoCompleto, objetivo, imgUrl);
+            // Act
+            var professionalInformation = new ProfessionalInformation(
+                "John Doe",
+                "123456789",
+                "john.doe@example.com",
+                "linkedin.com/in/johndoe",
+                "123 Main St, City, Country",
+                "Seeking new opportunities",
+                "http://example.com/img.jpg",
+                readerUser
+            );
 
-//            // Assert
-//            Assert.NotNull(professionalInfo);
-//            Assert.Equal(completeName, professionalInfo.CompleteName);
-//            Assert.Equal(telefone, professionalInfo.Telefone);
-//            Assert.Equal(email, professionalInfo.Email);
-//            Assert.Equal(linkedin, professionalInfo.Linkedin);
-//            Assert.Equal(enderecoCompleto, professionalInfo.EnderecoCompleto);
-//            Assert.Equal(objetivo, professionalInfo.Objetivo);
-//            Assert.Equal(imgUrl, professionalInfo.ImgUrl);
-//        }
+            // Assert
+            Assert.NotNull(professionalInformation);
+            Assert.Equal("John Doe", professionalInformation.CompleteName);
+            Assert.Equal("123456789", professionalInformation.PhoneNumber);
+            Assert.Equal("john.doe@example.com", professionalInformation.Email);
+            Assert.Equal("linkedin.com/in/johndoe", professionalInformation.Linkedin);
+            Assert.Equal("123 Main St, City, Country", professionalInformation.CompleteAddress);
+            Assert.Equal("Seeking new opportunities", professionalInformation.Purpose);
+            Assert.Equal("http://example.com/img.jpg", professionalInformation.ImgUrl);
+            Assert.Equal(readerUser, professionalInformation.ReaderUser);
+        }
 
-//        [Fact]
-//        public void Constructor_ShouldThrowException_WhenCompleteNameIsEmpty()
-//        {
-//            // Act & Assert
-//            var exception = Assert.Throws<DomainExceptionValidation>(() =>
-//                new ProfessionalInformation(string.Empty, "+1234567890", "johndoe@example.com", "https://linkedin.com/in/johndoe", "123 Main St", "To obtain a challenging position.", "https://example.com/image.jpg")
-//            );
-//            Assert.Equal("O nome completo é obrigatório.", exception.Message);
-//        }
+        [Fact]
+        public void Constructor_WithNullId_ShouldThrowDomainException()
+        {
+            // Arrange
+            var readerUser = CreateReaderUser();
 
-//        [Fact]
-//        public void Constructor_ShouldThrowException_WhenEmailIsInvalid()
-//        {
-//            // Act & Assert
-//            var exception = Assert.Throws<DomainExceptionValidation>(() =>
-//                new ProfessionalInformation("John Doe", "+1234567890", "invalid_email", "https://linkedin.com/in/johndoe", "123 Main St", "To obtain a challenging position.", "https://example.com/image.jpg")
-//            );
-//            Assert.Equal("O email fornecido não é válido.", exception.Message);
-//        }
+            // Act & Assert
+            var exception = Assert.Throws<DomainExceptionValidation>(() => new ProfessionalInformation(
+                Guid.Empty,
+                "John Doe",
+                "123456789",
+                "john.doe@example.com",
+                "linkedin.com/in/johndoe",
+                "123 Main St, City, Country",
+                "Seeking new opportunities",
+                "http://example.com/img.jpg",
+                readerUser
+            ));
 
-//        [Fact]
-//        public void Update_ShouldUpdateProfessionalInformation()
-//        {
-//            // Arrange
-//            var completeName = "John Doe";
-//            var telefone = "+1234567890";
-//            var email = "johndoe@example.com";
-//            var linkedin = "https://linkedin.com/in/johndoe";
-//            var enderecoCompleto = "123 Main St, Anytown, USA";
-//            var objetivo = "To obtain a challenging position.";
-//            var imgUrl = "https://example.com/image.jpg";
+            Assert.Equal("Id deve ser um GUID válido e não pode ser vazio ou nulo.", exception.Message);
+        }
 
-//            var professionalInfo = new ProfessionalInformation(completeName, telefone, email, linkedin, enderecoCompleto, objetivo, imgUrl);
+        [Fact]
+        public void Constructor_WithInvalidCompleteName_ShouldThrowDomainException()
+        {
+            // Arrange
+            var readerUser = CreateReaderUser();
 
-//            // New values for update
-//            var newCompleteName = "Jane Doe";
-//            var newTelefone = "+0987654321";
-//            var newEmail = "janedoe@example.com";
-//            var newLinkedin = "https://linkedin.com/in/janedoe";
-//            var newEnderecoCompleto = "456 Elm St, Othertown, USA";
-//            var newObjetivo = "To excel in my career.";
-//            var newImgUrl = "https://example.com/newimage.jpg";
+            // Act & Assert
+            var exception = Assert.Throws<DomainExceptionValidation>(() => new ProfessionalInformation(
+                "",
+                "123456789",
+                "john.doe@example.com",
+                "linkedin.com/in/johndoe",
+                "123 Main St, City, Country",
+                "Seeking new opportunities",
+                "http://example.com/img.jpg",
+                readerUser
+            ));
 
-//            // Act
-//            professionalInfo.Update(professionalInfo.Id, newCompleteName, newTelefone, newEmail, newLinkedin, newEnderecoCompleto, newObjetivo, newImgUrl);
+            Assert.Equal("O nome completo é obrigatório e não pode exceder 255 caracteres.", exception.Message);
+        }
 
-//            // Assert
-//            Assert.Equal(newCompleteName, professionalInfo.CompleteName);
-//            Assert.Equal(newTelefone, professionalInfo.Telefone);
-//            Assert.Equal(newEmail, professionalInfo.Email);
-//            Assert.Equal(newLinkedin, professionalInfo.Linkedin);
-//            Assert.Equal(newEnderecoCompleto, professionalInfo.EnderecoCompleto);
-//            Assert.Equal(newObjetivo, professionalInfo.Objetivo);
-//            Assert.Equal(newImgUrl, professionalInfo.ImgUrl);
-//        }
-//    }
-//}
+        [Fact]
+        public void Constructor_WithInvalidEmail_ShouldThrowDomainException()
+        {
+            // Arrange
+            var readerUser = CreateReaderUser();
+
+            // Act & Assert
+            var exception = Assert.Throws<DomainExceptionValidation>(() => new ProfessionalInformation(
+                "John Doe",
+                "123456789",
+                new string('e', 256),
+                "linkedin.com/in/johndoe",
+                "123 Main St, City, Country",
+                "Seeking new opportunities",
+                "http://example.com/img.jpg",
+                readerUser
+            ));
+
+            Assert.Equal("Um e-mail válido é obrigatório e não pode exceder 255 caracteres.", exception.Message);
+        }
+
+        [Fact]
+        public void Constructor_WithNullReaderUser_ShouldThrowDomainException()
+        {
+            // Act & Assert
+            var exception = Assert.Throws<DomainExceptionValidation>(() => new ProfessionalInformation(
+                "John Doe",
+                "123456789",
+                "john.doe@example.com",
+                "linkedin.com/in/johndoe",
+                "123 Main St, City, Country",
+                "Seeking new opportunities",
+                "http://example.com/img.jpg",
+                null
+            ));
+
+            Assert.Equal("O Usuário Leitor é obrigatório.", exception.Message);
+        }
+
+        private ReaderUser CreateReaderUser()
+        {
+            return new ReaderUser(
+                new UserRole(),
+                "Jane Doe",
+                "jane.doe@example.com",
+                "password123",
+                true,
+                null,
+                null,
+                null,
+                null
+            );
+        }
+    }
+}
