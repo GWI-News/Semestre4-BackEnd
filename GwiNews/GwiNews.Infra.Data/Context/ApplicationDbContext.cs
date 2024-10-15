@@ -13,6 +13,7 @@ namespace GwiNews.Infra.Data.Context
         public DbSet<UserWithNews> UsersWithNews { get; set; }
         public DbSet<News> News { get; set; }
         public DbSet<NewsCategory> NewsCategories { get; set; }
+        public DbSet<NewsSubcategory> NewsSubcategories { get; set; }
         public DbSet<ProfessionalInformation> ProfessionalInformations { get; set; }
         public DbSet<Formation> Formations { get; set; }
         public DbSet<ProfessionalSkill> ProfessionalSkills { get; set; }
