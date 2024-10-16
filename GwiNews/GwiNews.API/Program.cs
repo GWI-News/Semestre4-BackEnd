@@ -1,8 +1,8 @@
 using GwiNews.Domain.Interfaces;
-using GwiNews.Infra.Data.Repositories;
-using GwiNews.Infra.IoC;
-using Infra.Data.Repositories;
-using Interfaces;
+//using GwiNews.Infra.Data.Repositories;
+//using GwiNews.Infra.IoC;
+//using Infra.Data.Repositories;
+//using Interfaces;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
@@ -10,11 +10,11 @@ using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddInfrastructureAPI(builder.Configuration);
+//builder.Services.AddInfrastructureAPI(builder.Configuration);
 
 builder.Services.AddControllers();
-builder.Services.AddScoped<IUserRepository, UserRepository>();
-builder.Services.AddScoped<INewsCategoryRepository, NewsCategoryRepository>();
+//builder.Services.AddScoped<IUserRepository, UserRepository>();
+//builder.Services.AddScoped<INewsCategoryRepository, NewsCategoryRepository>();
 builder.Services.AddEndpointsApiExplorer();
 
 builder.Services.AddSwaggerGen(c =>

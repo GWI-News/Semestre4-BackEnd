@@ -1,16 +1,14 @@
 ﻿using GwiNews.Domain.Entities;
 
-namespace Interfaces
+namespace GwiNews.Domain.Interfaces
 {
     public interface INewsCategoryRepository
     {
-        Task<NewsCategory> GetNewsCategoryById(Guid? id);
-        //Task<IEnumerable<News>> GetNewsByCategory(Guid categoryId);
-        Task<IEnumerable<NewsCategory>> GetAllNewsCategories();
-        Task<NewsCategory> AddNewsCategory(NewsCategory newsCategory);
-        Task<NewsCategory> UpdateNewsCategory(NewsCategory newsCategory);
-        Task<NewsCategory> DeleteNewsCategory(Guid? id);
-        Task<IEnumerable<NewsCategory>> GetAllWithRelatedData();
-        Task<NewsCategory> GetByIdWithRelatedData(Guid? id);
+        Task<IEnumerable<NewsCategory>>? GetCategoriesAsync();
+        Task<NewsCategory>? GetByIdAsync(Guid? id);
+        Task<NewsCategory>? CreateAsync(NewsCategory? category);
+        Task<NewsCategory>? UpdateAsync(NewsCategory? category);
+        Task<NewsCategory>? RemoveAsync(NewsCategory? category);
+        Task<IEnumerable<NewsCategory>>? GetFilteredAsync(string? name);
     }
 }

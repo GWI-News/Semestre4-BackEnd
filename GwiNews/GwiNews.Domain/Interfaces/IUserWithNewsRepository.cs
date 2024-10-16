@@ -1,16 +1,16 @@
 ﻿using GwiNews.Domain.Entities;
-using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
 
-namespace GwiNews.Infra.Data.Interfaces
+namespace GwiNews.Domain.Interfaces
 {
     public interface IUserWithNewsRepository
     {
-        Task<UserWithNews> GetByIdAsync(Guid id);
-        Task<IEnumerable<UserWithNews>> GetAllAsync();
-        Task AddAsync(UserWithNews userWithNews);
-        Task UpdateAsync(UserWithNews userWithNews);
-        Task DeleteAsync(Guid id);
+        Task<IEnumerable<UserWithNews>>? GetUsersAsync();
+        Task<UserWithNews>? GetByIdAsync(Guid? id);
+        Task<UserWithNews>? CreateAsync(UserWithNews? userWithNews);
+        Task<UserWithNews>? UpdateAsync(UserWithNews? userWithNews);
+        Task<UserWithNews>? RemoveAsync(UserWithNews? userWithNews);
+        Task<IEnumerable<UserWithNews>>? GetFilteredAsync(string? completeName);
+        Task<bool>? GetStatusAsync(Guid? userId);
+        Task UpdateStatusAsync(Guid? userId, bool? newStatus);
     }
 }
