@@ -1,6 +1,6 @@
 ﻿using GwiNews.Domain.Entities;
 
-namespace GwiNews.Application.Interfaces
+namespace GwiNews.Domain.Interfaces
 {
     public interface IFormationService
     {
