@@ -1,66 +1,94 @@
-﻿//using GwiNews.Domain.Entities;
-//using GwiNews.Domain.Interfaces;
-//using GwiNews.Infra.Data.Context;
-//using Microsoft.EntityFrameworkCore;
+﻿using GwiNews.Domain.Entities;
+using GwiNews.Domain.Interfaces;
+using GwiNews.Infra.Data.Context;
+using Microsoft.EntityFrameworkCore;
 
-//namespace GwiNews.Infra.Data.Repositories
-//{
-//    public class UserRepository : IUserRepository
-//    {
-//        private readonly ApplicationDbContext _userContext;
+namespace GwiNews.Infra.Data.Repositories
+{
+    public class UserRepository : IUserRepository
+    {
+        private readonly ApplicationDbContext _context;
 
-//        public UserRepository(ApplicationDbContext context)
-//        {
-//            _userContext = context;
-//        }
+        public UserRepository(ApplicationDbContext context)
+        {
+            _context = context;
+        }
 
-//        public async Task<User> GetByIdUserAsync(Guid? id)
-//        {
-//            return await _userContext.Users.FindAsync(id);
-//        }
+        public async Task<IEnumerable<User>>? GetUsersAsync()
+        {
+            return await _context.Users.ToListAsync();
+        }
 
-//        public async Task<IEnumerable<User>> GetAllUserAsync()
-//        {
-//            return await _userContext.Users.ToListAsync();
-//        }
+        public async Task<User>? GetByIdAsync(Guid? id)
+        {
+            return await _context.Users.FindAsync(id);
+        }
 
-//        public async Task<User> CreateUserAsync(User user)
-//        {
-//            await _userContext.Users.AddAsync(user);
-//            await _userContext.SaveChangesAsync();
-//            return user;
-//        }
+        public async Task<User>? CreateAsync(User? user)
+        {
+            if (user == null)
+                return null;
 
-//        public async Task<User> UpdateUserAsync(User user)
-//        {
-//            _userContext.Users.Update(user);
-//            await _userContext.SaveChangesAsync();
-//            return user;
-//        }
+            await _context.Users.AddAsync(user);
+            await _context.SaveChangesAsync();
+            return user;
+        }
 
-//        public async Task<User> DeleteUserAsync(Guid? id)
-//        {
-//            var user = await GetByIdUserAsync(id);
-//            if (user == null) return null;
+        public async Task<User>? UpdateAsync(User? user)
+        {
+            if (user == null || user.Id == null)
+                return null;
 
-//            _userContext.Users.Remove(user);
-//            await _userContext.SaveChangesAsync();
-//            return user;
-//        }
+            _context.Users.Update(user);
+            await _context.SaveChangesAsync();
+            return user;
+        }
 
-//        public async Task<User> GetByEmailUserAsync(string email)
-//        {
-//            return await _userContext.Users.FirstOrDefaultAsync(u => u.Email == email);
-//        }
+        public async Task<User>? RemoveAsync(User? user)
+        {
+            if (user == null || user.Id == null)
+                return null;
 
-//        public async Task<User> StatusChangeUserAsync(Guid id)
-//        {
-//            var user = await GetByIdUserAsync(id);
-//            if (user == null) return null;
+            var existingUser = await GetByIdAsync(user.Id);
+            if (existingUser == null)
+                return null;
 
-//            user.ActiveUser(user.Status);
-//            await UpdateUserAsync(user);
-//            return user;
-//        }
-//    }
-//}
+            _context.Users.Remove(existingUser);
+            await _context.SaveChangesAsync();
+            return existingUser;
+        }
+
+        public async Task<IEnumerable<User>>? GetFilteredAsync(string name, UserRole? role)
+        {
+            var query = _context.Users.AsQueryable();
+
+            if (!string.IsNullOrWhiteSpace(name))
+            {
+                query = query.Where(u => u.CompleteName != null && u.CompleteName.Contains(name));
+            }
+
+            if (role != null)
+            {
+                query = query.Where(u => u.Role == role);
+            }
+
+            return await query.ToListAsync();
+        }
+
+        public async Task<bool>? GetStatusAsync(Guid? userId)
+        {
+            var user = await GetByIdAsync(userId);
+            return user?.Status ?? false;
+        }
+
+        public async Task UpdateStatusAsync(Guid? userId, bool newStatus)
+        {
+            var user = await GetByIdAsync(userId);
+            if (user != null)
+            {
+                user.ActiveUser(newStatus);
+                await UpdateAsync(user);
+            }
+        }
+    }
+}

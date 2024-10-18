@@ -1,52 +1,52 @@
-﻿//using GwiNews.Domain.Entities;
-//using GwiNews.Infra.Data.Interfaces;
-//using GwiNews.Infra.Data.Context;
-//using Microsoft.EntityFrameworkCore;
-//using System;
-//using System.Collections.Generic;
-//using System.Threading.Tasks;
+﻿using GwiNews.Domain.Entities;
+using GwiNews.Domain.Interfaces;
+using GwiNews.Infra.Data.Context;
+using Microsoft.EntityFrameworkCore;
 
-//namespace GwiNews.Infra.Data.Repositories
-//{
-//    public class UserWithNewsRepository : IUserWithNewsRepository
-//    {
-//        private readonly ApplicationDbContext _context;
+namespace GwiNews.Infra.Data.Repositories
+{
+    public class UserWithNewsRepository : UserRepository, IUserWithNewsRepository
+    {
+        private readonly ApplicationDbContext _context;
 
-//        public UserWithNewsRepository(ApplicationDbContext context)
-//        {
-//            _context = context;
-//        }
+        public UserWithNewsRepository(ApplicationDbContext context) : base(context)
+        {
+            _context = context;
+        }
 
-//        public async Task<UserWithNews> GetByIdAsync(Guid id)
-//        {
-//            return await _context.UsersWithNews.FindAsync(id);
-//        }
+        public async Task<IEnumerable<News>>? GetOwnNewsAsync(Guid? userWithNewsId)
+        {
+            var userWithNews = await _context.Users
+                .Include(u => (u as UserWithNews).News)
+                .FirstOrDefaultAsync(u => u.Id == userWithNewsId && u is UserWithNews);
 
-//        public async Task<IEnumerable<UserWithNews>> GetAllAsync()
-//        {
-//            return await _context.UsersWithNews.ToListAsync();
-//        }
+            return userWithNews != null ? ((UserWithNews)userWithNews).News : null;
+        }
 
-//        public async Task AddAsync(UserWithNews userWithNews)
-//        {
-//            await _context.UsersWithNews.AddAsync(userWithNews);
-//            await _context.SaveChangesAsync();
-//        }
+        public async Task AddOwnNewsAsync(Guid? userWithNewsId, News? news)
+        {
+            var userWithNews = await _context.Users
+                .Include(u => (u as UserWithNews).News)
+                .FirstOrDefaultAsync(u => u.Id == userWithNewsId && u is UserWithNews);
 
-//        public async Task UpdateAsync(UserWithNews userWithNews)
-//        {
-//            _context.UsersWithNews.Update(userWithNews);
-//            await _context.SaveChangesAsync();
-//        }
+            if (userWithNews != null && news != null)
+            {
+                ((UserWithNews)userWithNews).News?.Add(news);
+                await _context.SaveChangesAsync();
+            }
+        }
 
-//        public async Task DeleteAsync(Guid id)
-//        {
-//            var userWithNews = await GetByIdAsync(id);
-//            if (userWithNews != null)
-//            {
-//                _context.UsersWithNews.Remove(userWithNews);
-//                await _context.SaveChangesAsync();
-//            }
-//        }
-//    }
-//}
+        public async Task RemoveOwnNewsAsync(Guid? userWithNewsId, News? news)
+        {
+            var userWithNews = await _context.Users
+                .Include(u => (u as UserWithNews).News)
+                .FirstOrDefaultAsync(u => u.Id == userWithNewsId && u is UserWithNews);
+
+            if (userWithNews != null && news != null)
+            {
+                ((UserWithNews)userWithNews).News?.Remove(news);
+                await _context.SaveChangesAsync();
+            }
+        }
+    }
+}
