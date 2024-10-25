@@ -1,37 +1,41 @@
 ﻿using GwiNews.Domain.Entities;
-using System.ComponentModel.DataAnnotations;
 using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 
 namespace GwiNews.Application.DTOs
 {
     public class UserDTO
     {
-        [Required(ErrorMessage = "O Id é obrigatório.")]
         public Guid? Id { get; set; }
 
-        [Required(ErrorMessage = "O nome completo é obrigatório.")]
-        [MaxLength(255, ErrorMessage = "O nome completo pode ter no máximo 255 caracteres.")]
-        [DisplayName("Nome Completo")]
-        public string? CompleteName { get; set; }
-
-        [Required(ErrorMessage = "O e-mail é obrigatório.")]
-        [MaxLength(255, ErrorMessage = "O e-mail pode ter no máximo 255 caracteres.")]
-        [EmailAddress(ErrorMessage = "O e-mail deve ser válido.")]
-        [DisplayName("E-mail")]
-        public string? Email { get; set; }
-
-        [Required(ErrorMessage = "A senha é obrigatória.")]
-        [MaxLength(255, ErrorMessage = "A senha pode ter no máximo 255 caracteres.")]
-        [MinLength(6, ErrorMessage = "A senha deve ter pelo menos 6 caracteres.")]
-        [DisplayName("Senha")]
-        public string? Password { get; set; }
-
-        [Required(ErrorMessage = "O papel do usuário é obrigatório.")]
-        [DisplayName("Função")]
+        [Required(ErrorMessage = "The Role is required")]
+        [DisplayName("User Role")]
         public UserRole? Role { get; set; }
 
-        [Required(ErrorMessage = "O status do usuário é obrigatório.")]
+        [Required(ErrorMessage = "The Complete Name is required")]
+        [StringLength(255, ErrorMessage = "The Complete Name cannot exceed 255 characters")]
+        [MinLength(3, ErrorMessage = "The Complete Name must have at least 3 characters")]
+        [DisplayName("Complete Name")]
+        public string? CompleteName { get; set; }
+
+        [Required(ErrorMessage = "The Email is required")]
+        [EmailAddress(ErrorMessage = "A valid Email is required")]
+        [StringLength(255, ErrorMessage = "The Email cannot exceed 255 characters")]
+        [DisplayName("Email")]
+        public string? Email { get; set; }
+
+        [Required(ErrorMessage = "The Password is required")]
+        [PasswordPropertyText]
+        [StringLength(255, ErrorMessage = "The Password cannot exceed 255 characters")]
+        [MinLength(6, ErrorMessage = "The Password must have at least 6 characters")]
+        [DisplayName("Password")]
+        public string? Password { get; set; }
+
+        [Required(ErrorMessage = "The Status is required")]
         [DisplayName("Status")]
         public bool? Status { get; set; }
+
+        [DisplayName("User Active")]
+        public bool IsActive => Status == true;
     }
 }

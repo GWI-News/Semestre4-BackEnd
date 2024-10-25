@@ -81,7 +81,7 @@ namespace GwiNews.Infra.Data.Repositories
             return user?.Status ?? false;
         }
 
-        public async Task UpdateStatusAsync(Guid? userId, bool newStatus)
+        public async Task UpdateStatusAsync(Guid? userId, bool? newStatus)
         {
             var user = await GetByIdAsync(userId);
             if (user != null)

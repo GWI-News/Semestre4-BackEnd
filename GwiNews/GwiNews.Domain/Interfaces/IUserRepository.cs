@@ -11,6 +11,6 @@ namespace GwiNews.Domain.Interfaces
         Task<User>? RemoveAsync(User? user);
         Task<IEnumerable<User>>? GetFilteredAsync(string name, UserRole? role);
         Task<bool>? GetStatusAsync(Guid? userId);
-        Task UpdateStatusAsync(Guid? userId, bool newStatus);
+        Task UpdateStatusAsync(Guid? userId, bool? newStatus);
     }
 }
