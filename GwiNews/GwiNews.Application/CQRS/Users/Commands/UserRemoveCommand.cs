@@ -1,13 +1,13 @@
 ﻿using GwiNews.Domain.Entities;
 using MediatR;
 
-namespace GwiNews.Application.Users.Queries
+namespace GwiNews.Application.CQRS.Users.Commands
 {
-    public class GetUserByIdQuery : IRequest<User>
+    public class UserRemoveCommand : IRequest<User>
     {
         public Guid? Id { get; set; }
 
-        public GetUserByIdQuery(Guid? id)
+        public UserRemoveCommand(Guid? id)
         {
             Id = id;
         }
