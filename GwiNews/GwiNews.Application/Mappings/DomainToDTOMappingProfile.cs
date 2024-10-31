@@ -11,6 +11,7 @@ namespace GwiNews.Application.Mappings
             CreateMap<User, UserDTO>().ReverseMap();
             CreateMap<News, NewsDTO>().ReverseMap();
             CreateMap<NewsCategory, NewsCategoryDTO>().ReverseMap();
+            CreateMap<NewsSubcategory, NewsSubcategoryDTO>().ReverseMap();
         }
     }
 }
