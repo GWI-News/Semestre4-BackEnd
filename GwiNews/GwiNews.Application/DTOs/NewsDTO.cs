@@ -1,54 +1,62 @@
-﻿using GwiNews.Domain.Entities;
-using System;
-using System.Collections.Generic;
+﻿using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using GwiNews.Domain.Entities;
 
 namespace GwiNews.Application.DTOs
 {
     public class NewsDTO
     {
-        [Required(ErrorMessage = "Id is required.")]
-        public Guid Id { get; set; }
+        public Guid? Id { get; set; }
 
-        [Required(ErrorMessage = "Status is required.")]
-        public NewsStatus Status { get; set; }
+        [Required(ErrorMessage = "The Status is required")]
+        [DisplayName("News Status")]
+        public NewsStatus? Status { get; set; }
 
-        [MaxLength(255, ErrorMessage = "NewsUrl cannot exceed 255 characters.")]
-        public string NewsUrl { get; set; }
+        [Required(ErrorMessage = "The News URL is required")]
+        [StringLength(255, ErrorMessage = "The News URL cannot exceed 255 characters")]
+        [DisplayName("News URL")]
+        public string? NewsUrl { get; set; }
 
-        [Required(ErrorMessage = "Title is required.")]
-        [MaxLength(75, ErrorMessage = "Title cannot exceed 75 characters.")]
-        public string Title { get; set; }
+        [Required(ErrorMessage = "The Title is required")]
+        [StringLength(75, ErrorMessage = "The Title cannot exceed 75 characters")]
+        [DisplayName("Title")]
+        public string? Title { get; set; }
 
-        [MaxLength(255, ErrorMessage = "Subtitle cannot exceed 255 characters.")]
-        public string Subtitle { get; set; }
+        [Required(ErrorMessage = "The Subtitle is required")]
+        [StringLength(255, ErrorMessage = "The Subtitle cannot exceed 255 characters")]
+        [DisplayName("Subtitle")]
+        public string? Subtitle { get; set; }
 
-        [MaxLength(65535, ErrorMessage = "NewsBody cannot exceed 65,535 characters.")]
-        public string NewsBody { get; set; }
+        [Required(ErrorMessage = "The News Body is required")]
+        [StringLength(65535, ErrorMessage = "The News Body cannot exceed 65,535 characters")]
+        [DisplayName("News Body")]
+        public string? NewsBody { get; set; }
 
-        [MaxLength(555, ErrorMessage = "ImageUrl cannot exceed 555 characters.")]
-        public string ImageUrl { get; set; }
+        [Required(ErrorMessage = "The Image URL is required")]
+        [StringLength(555, ErrorMessage = "The Image URL cannot exceed 555 characters")]
+        [DisplayName("Image URL")]
+        public string? ImageUrl { get; set; }
 
-        [Required(ErrorMessage = "PublicationDate is required.")]
-        public DateTime PublicationDate { get; set; }
+        [Required(ErrorMessage = "The Publication Date is required")]
+        [DisplayName("Publication Date")]
+        public DateTime? PublicationDate { get; set; }
 
-        /*public UserWithNews Author { get; set; }
+        [Required(ErrorMessage = "The Author is required")]
+        [DisplayName("Author")]
+        public UserDTO? Author { get; set; }
 
-        public UserWithNews Editor { get; set; }*/
+        [Required(ErrorMessage = "The Editor is required")]
+        [DisplayName("Editor")]
+        public UserDTO? Editor { get; set; }
 
-        public NewsCategory NewsCategory { get; set; }
+        [Required(ErrorMessage = "The News Category is required")]
+        [DisplayName("News Category")]
+        public NewsCategoryDTO? NewsCategory { get; set; }
 
-        /*
-        public ICollection<NewsSubcategory> NewsSubcategories { get; set; }
+        [DisplayName("News Subcategories")]
+        public ICollection<NewsSubcategoryDTO>? NewsSubcategories { get; set; }
 
-        public ICollection<ReaderUser> FavoritedByUsers { get; set; }*/
-    }
-
-    public enum NewsStatus
-    {
-        Publicada = 0,
-        EmRevisao = 1,
-        Rascunho = 2,
-        Inativa = 3
+        //[DisplayName("Favorited By")]
+        //public ICollection<ReaderUserDTO>? FavoritedBy { get; set; }
     }
 }
