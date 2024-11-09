@@ -1,4 +1,4 @@
-﻿/*using AutoMapper;
+﻿using AutoMapper;
 using GwiNews.Application.DTOs;
 using GwiNews.Application.Interfaces;
 using GwiNews.Domain.Entities;
@@ -16,51 +16,56 @@ namespace GwiNews.Application.Services
             _newsRepository = newsRepository;
             _mapper = mapper;
         }
-        public async Task<IEnumerable<NewsDTO>> GetNews()
+
+        public async Task<IEnumerable<NewsDTO>>? GetNewsAsync()
         {
-            var newsEntity = await _newsRepository.GetAllNews();
-            return _mapper.Map<IEnumerable<NewsDTO>>(newsEntity);
+            var newsEntities = await _newsRepository.GetNewsAsync();
+            return _mapper.Map<IEnumerable<NewsDTO>>(newsEntities);
         }
 
-        public async Task<NewsDTO> GetNewsById(Guid? id)
+        public async Task<NewsDTO>? GetNewsByIdAsync(Guid? id)
         {
-            var newsEntity = await _newsRepository.GetNewsById(id);
+            var newsEntity = await _newsRepository.GetByIdAsync(id);
             return _mapper.Map<NewsDTO>(newsEntity);
         }
-        public async Task AddNews(NewsDTO newsDto)
+
+        public async Task AddNewsAsync(NewsDTO? newsDto)
         {
             var newsEntity = _mapper.Map<News>(newsDto);
-            await _newsRepository.AddNews(newsEntity);
+            await _newsRepository.CreateAsync(newsEntity);
         }
 
-        public async Task RemoveNews(Guid? id)
-        {
-            var newsEntity = await _newsRepository.GetNewsById(id);
-            await _newsRepository.DeleteNews(newsEntity.Id);
-        }
-
-        public async Task UpdateNews(NewsDTO newsDto)
+        public async Task UpdateNewsAsync(NewsDTO? newsDto)
         {
             var newsEntity = _mapper.Map<News>(newsDto);
-            await _newsRepository.UpdateNews(newsEntity);
+            await _newsRepository.UpdateAsync(newsEntity);
         }
 
-        /*public async Task<IEnumerable<NewsDTO>> GetNewsByStatus(NewsStatus status)
+        public async Task RemoveNewsAsync(Guid? id)
         {
-            var newsEntities = await _newsRepository.GetNewsByStatus(status);
+            var newsEntity = await _newsRepository.GetByIdAsync(id);
+            if (newsEntity != null)
+            {
+                await _newsRepository.RemoveAsync(newsEntity);
+            }
+        }
+
+        public async Task<IEnumerable<NewsDTO>>? GetFilteredNewsByTitleAsync(string? title)
+        {
+            var newsEntities = await _newsRepository.GetFilteredByTitleAsync(title);
             return _mapper.Map<IEnumerable<NewsDTO>>(newsEntities);
         }
 
-        public async Task<IEnumerable<NewsDTO>> GetNewsByCategory(Guid categoryId)
+        public async Task<IEnumerable<NewsDTO>>? GetFilteredNewsByCategoryAsync(NewsCategory? category)
         {
-            var newsEntities = await _newsRepository.GetNewsByCategory(categoryId);
+            var newsEntities = await _newsRepository.GetFilteredByCatgoryAsync(category);
             return _mapper.Map<IEnumerable<NewsDTO>>(newsEntities);
         }
 
-        public async Task<IEnumerable<ReaderUserDTO>> GetFavoritedByUsers(Guid newsId)
+        public async Task<IEnumerable<NewsDTO>>? GetFilteredNewsBySubcategoryAsync(NewsSubcategory? subcategory)
         {
-            var usersEntities = await _newsRepository.GetFavoritedByUsers(newsId);
-            return _mapper.Map<IEnumerable<ReaderUserDTO>>(usersEntities);
+            var newsEntities = await _newsRepository.GetFilteredBySubcategoryAsync(subcategory);
+            return _mapper.Map<IEnumerable<NewsDTO>>(newsEntities);
         }
     }
-}*/
+}
