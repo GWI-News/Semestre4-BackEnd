@@ -1,4 +1,4 @@
-﻿namespace GwiNews.Application.CQRS.Users.Commands
+﻿namespace GwiNews.Application.CQRS.UsersCQRS.Commands
 {
     public class UserCreateCommand : UserCommands
     {

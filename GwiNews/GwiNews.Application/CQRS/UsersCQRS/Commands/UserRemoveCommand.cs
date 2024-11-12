@@ -1,7 +1,7 @@
 ﻿using GwiNews.Domain.Entities;
 using MediatR;
 
-namespace GwiNews.Application.CQRS.Users.Commands
+namespace GwiNews.Application.CQRS.UsersCQRS.Commands
 {
     public class UserRemoveCommand : IRequest<User>
     {

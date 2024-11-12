@@ -1,7 +1,7 @@
 ﻿using MediatR;
 using GwiNews.Domain.Entities;
 
-namespace GwiNews.Application. CQRS.Users.Commands
+namespace GwiNews.Application.CQRS.UsersCQRS.Commands
 {
     public abstract class UserCommands : IRequest<User>
     {
