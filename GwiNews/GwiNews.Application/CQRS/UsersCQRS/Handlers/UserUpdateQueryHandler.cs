@@ -1,9 +1,9 @@
-﻿using GwiNews.Application.CQRS.Users.Commands;
+﻿using GwiNews.Application.CQRS.UsersCQRS.Commands;
 using GwiNews.Domain.Entities;
 using GwiNews.Domain.Interfaces;
 using MediatR;
 
-namespace GwiNews.Application.Users.Handlers
+namespace GwiNews.Application.UsersCQRS.Handlers
 {
     public class UserUpdateQueryHandler : IRequestHandler<UserUpdateCommand, User>
     {
