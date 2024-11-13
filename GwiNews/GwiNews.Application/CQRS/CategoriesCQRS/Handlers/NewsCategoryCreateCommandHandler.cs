@@ -1,29 +1,26 @@
-﻿//using GwiNews.Application.Category.Commands;
-//using GwiNews.Domain.Entities;
-//using Interfaces;
-//using MediatR;
+﻿using MediatR;
+using GwiNews.Domain.Entities;
+using GwiNews.Domain.Interfaces;
+using GwiNews.Application.CQRS.CategoriesCQRS.Commands;
 
-//namespace GwiNews.Application.Categories.Handlers
-//{
-//    public class NewsCategoryCreateCommandHandler : IRequestHandler<NewsCategoryCreateCommand, NewsCategory>
-//    {
-//        private readonly INewsCategoryRepository _newsCategoryRepository;
+namespace GwiNews.Application.CQRS.CategoriesCQRS.Handlers
+{
+    public class NewsCategoryCreateCommandHandler : IRequestHandler<NewsCategoryCreateCommand, NewsCategory>
+    {
+        private readonly INewsCategoryRepository _newsCategoryRepository;
 
-//        public NewsCategoryCreateCommandHandler(INewsCategoryRepository newsCategoryRepository)
-//        {
-//            _newsCategoryRepository = newsCategoryRepository;
-//        }
+        public NewsCategoryCreateCommandHandler(INewsCategoryRepository newsCategoryRepository)
+        {
+            _newsCategoryRepository = newsCategoryRepository;
+        }
 
-//        public async Task<NewsCategory> Handle(NewsCategoryCreateCommand request, CancellationToken cancellationToken)
-//        {
-//            var category = new NewsCategory(request.Name, null, null);
+        public async Task<NewsCategory> Handle(NewsCategoryCreateCommand request, CancellationToken cancellationToken)
+        {
+            var newCategory = new NewsCategory(request.Id, request.Name, request.News, request.NewsSubcategories);
 
-//            if (category == null)
-//            {
-//                throw new ApplicationException("Error creating category.");
-//            }
+            var createdCategory = await _newsCategoryRepository.CreateAsync(newCategory);
 
-//            return await _newsCategoryRepository.AddNewsCategory(category);
-//        }
-//    }
-//}
+            return createdCategory;
+        }
+    }
+}
