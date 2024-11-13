@@ -5,11 +5,11 @@ using MediatR;
 
 namespace GwiNews.Application.UsersCQRS.Handlers
 {
-    public class UserUpdateQueryHandler : IRequestHandler<UserUpdateCommand, User>
+    public class UserUpdateCommandHandler : IRequestHandler<UserUpdateCommand, User>
     {
         private readonly IUserRepository _userRepository;
 
-        public UserUpdateQueryHandler(IUserRepository userRepository)
+        public UserUpdateCommandHandler(IUserRepository userRepository)
         {
             _userRepository = userRepository;
         }

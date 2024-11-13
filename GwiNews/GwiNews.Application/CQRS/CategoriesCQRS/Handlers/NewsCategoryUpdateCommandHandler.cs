@@ -1,29 +1,29 @@
-﻿//using GwiNews.Application.Category.Commands;
-//using GwiNews.Domain.Entities;
-//using Interfaces;
-//using MediatR;
+﻿using GwiNews.Application.CQRS.CategoriesCQRS.Commands;
+using GwiNews.Domain.Entities;
+using GwiNews.Domain.Interfaces;
+using MediatR;
 
-//namespace GwiNews.Application.Categories.Handlers
-//{
-//    public class NewsCategoryUpdateCommandHandler : IRequestHandler<NewsCategoryUpdateCommand, NewsCategory>
-//    {
-//        private readonly INewsCategoryRepository _newsCategoryRepository;
+namespace GwiNews.Application.CQRS.CategoriesCQRS.Handlers
+{
+    public class NewsCategoryUpdateCommandHandler : IRequestHandler<NewsCategoryUpdateCommand, NewsCategory>
+    {
+        private readonly INewsCategoryRepository _newsCategoryRepository;
 
-//        public NewsCategoryUpdateCommandHandler(INewsCategoryRepository newsCategoryRepository)
-//        {
-//            _newsCategoryRepository = newsCategoryRepository;
-//        }
+        public NewsCategoryUpdateCommandHandler(INewsCategoryRepository newsCategoryRepository)
+        {
+            _newsCategoryRepository = newsCategoryRepository;
+        }
 
-//        public async Task<NewsCategory> Handle(NewsCategoryUpdateCommand request, CancellationToken cancellationToken)
-//        {
-//            var category = await _newsCategoryRepository.GetNewsCategoryById(request.Id);
+        public async Task<NewsCategory> Handle(NewsCategoryUpdateCommand request, CancellationToken cancellationToken)
+        {
+            var category = await _newsCategoryRepository.GetByIdAsync(request.Id);
 
-//            if (category == null)
-//            {
-//                throw new ApplicationException("Category not found.");
-//            }
+            if (category == null)
+            {
+                throw new ApplicationException("News category not found.");
+            }
 
-//            return await _newsCategoryRepository.UpdateNewsCategory(category);
-//        }
-//    }
-//}
+            return await _newsCategoryRepository.UpdateAsync(category);
+        }
+    }
+}

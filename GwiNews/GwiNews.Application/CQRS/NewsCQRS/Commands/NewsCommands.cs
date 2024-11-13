@@ -17,5 +17,6 @@ namespace GwiNews.Application.CQRS.NewsCQRS.Commands
         public UserWithNews? Editor { get; set; }
         public NewsCategory? NewsCategory { get; set; }
         public ICollection<NewsSubcategory>? NewsSubcategories { get; set; }
+        public ICollection<ReaderUser>? FavoritedBy {  get; set; }
     }
 }

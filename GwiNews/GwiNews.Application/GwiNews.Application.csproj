@@ -7,6 +7,14 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="CQRS\NewsCQRS\Handlers\NewsRemoveCommandHandler.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="CQRS\NewsCQRS\Handlers\NewsRemoveCommandHandler.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="AutoMapper" Version="13.0.1" />
     <PackageReference Include="MediatR" Version="12.4.1" />
   </ItemGroup>
@@ -14,10 +22,6 @@
   <ItemGroup>
     <ProjectReference Include="..\GwiNews.Domain\GwiNews.Domain.csproj" />
     <ProjectReference Include="..\GwiNews.Infra.Data\GwiNews.Infra.Data.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="CQRS\NewsCQRS\Handlers\" />
   </ItemGroup>
 
 </Project>
