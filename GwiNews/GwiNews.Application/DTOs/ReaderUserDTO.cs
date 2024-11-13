@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using GwiNews.Domain.Entities;
-using System.ComponentModel;
-using System.ComponentModel.DataAnnotations;
-using Application.Enums;
-
+﻿using GwiNews.Application.DTOs;
 
 namespace GwiNews.Application.DTOs
 {
