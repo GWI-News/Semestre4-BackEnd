@@ -24,4 +24,9 @@
     <ProjectReference Include="..\GwiNews.Infra.Data\GwiNews.Infra.Data.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="CQRS\UserWithNewsCQRS\Handlers\" />
+    <Folder Include="CQRS\UserWithNewsCQRS\Queries\" />
+  </ItemGroup>
+
 </Project>
