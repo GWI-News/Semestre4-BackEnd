@@ -4,7 +4,7 @@ using MediatR;
 
 namespace GwiNews.Application.CQRS.UserWithNewsCQRS.Queries
 {
-    public class GetUserWithNewsQuery : GetUsersQuery, IRequest<IEnumerable<UserWithNews>>
+    public class GetUsersWithNewsQuery : GetUsersQuery, IRequest<IEnumerable<UserWithNews>>
     {
     }
 }

@@ -25,7 +25,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="CQRS\UserWithNewsCQRS\Handlers\" />
     <Folder Include="CQRS\UserWithNewsCQRS\Queries\" />
   </ItemGroup>
 

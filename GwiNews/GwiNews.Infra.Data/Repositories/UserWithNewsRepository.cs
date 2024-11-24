@@ -14,7 +14,7 @@ namespace GwiNews.Infra.Data.Repositories
             _context = context;
         }
 
-        public async Task<IEnumerable<News>>? GetOwnNewsAsync(Guid? userWithNewsId)
+        public async Task<IEnumerable<News?>>? GetOwnNewsAsync(Guid? userWithNewsId)
         {
             var userWithNews = await _context.Users
                 .Include(u => (u as UserWithNews).News)

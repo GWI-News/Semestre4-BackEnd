@@ -1,9 +1,4 @@
 ﻿using GwiNews.Application.DTOs;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace GwiNews.Application.Interfaces
 {
@@ -20,8 +15,8 @@ namespace GwiNews.Application.Interfaces
 
         Task RemoveNewsCategory(Guid? id);
 
-        //Task<IEnumerable<NewsDTO>> GetNewsByCategory(Guid categoryId);
+        Task<IEnumerable<NewsDTO>> GetNewsByCategory(Guid categoryId);
 
-        //Task<IEnumerable<NewsSubcategoryDTO>> GetNewsSubcategoriesByCategory(Guid categoryId);
+        Task<IEnumerable<NewsSubcategoryDTO>> GetNewsSubcategoriesByCategory(Guid categoryId);
     }
 }
