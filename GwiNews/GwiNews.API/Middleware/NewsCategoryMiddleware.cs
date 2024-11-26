@@ -1,59 +1,60 @@
-﻿//using Interfaces;
-//using System.Net;
-//using System.Text.Json;
+﻿using System.Net;
+using System.Text.Json;
+using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.Logging;
 
-//namespace GwiNews.API.Middleware
-//{
-//    public class NewsCategoryMiddleware
-//    {
-//        private readonly RequestDelegate _next;
-//        private readonly ILogger<NewsCategoryMiddleware> _logger;
-//        private readonly INewsCategoryRepository _newsCategoryRepository; 
+namespace GwiNews.API.Middleware
+{
+    public class NewsCategoryMiddleware
+    {
+        private readonly RequestDelegate _next;
+        private readonly ILogger<NewsCategoryMiddleware> _logger;
 
-//        public NewsCategoryMiddleware(RequestDelegate next,
-//                                      ILogger<NewsCategoryMiddleware> logger,
-//                                      INewsCategoryRepository newsCategoryRepository) 
-//        {
-//            _next = next;
-//            _logger = logger;
-//            _newsCategoryRepository = newsCategoryRepository;
-//        }
+        public NewsCategoryMiddleware(RequestDelegate next, ILogger<NewsCategoryMiddleware> logger)
+        {
+            _next = next;
+            _logger = logger;
+        }
 
-//        public async Task Invoke(HttpContext context)
-//        {
-//            try
-//            {
-//                await _next(context);
+        public async Task Invoke(HttpContext context)
+        {
+            try
+            {
+                await _next(context);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "An error occurred while processing the request.");
+                await HandleExceptionAsync(context, ex);
+            }
+        }
 
-//                var categoryId = context.Request.Query["categoryId"];
-//                if (Guid.TryParse(categoryId, out var id))
-//                {
-//                    _logger.LogInformation("Handling NewsCategory-specific functionality...");
+        private static async Task HandleExceptionAsync(HttpContext context, Exception exception)
+        {
+            var code = HttpStatusCode.InternalServerError;
 
-//                    var category = await _newsCategoryRepository.GetNewsCategoryById(id); 
-//                    if (category != null && string.IsNullOrEmpty(category.Name))
-//                    {
-//                        throw new InvalidOperationException("Category name cannot be empty.");
-//                    }
-//                }
-//            }
-//            catch (Exception ex)
-//            {
-//                _logger.LogError(ex, "An unhandled exception occurred in NewsCategory processing.");
+            // Customize response messages based on exception types
+            string errorMessage;
+            if (exception is KeyNotFoundException)
+            {
+                code = HttpStatusCode.NotFound;
+                errorMessage = "Category not found.";
+            }
+            else if (exception is ArgumentException)
+            {
+                code = HttpStatusCode.BadRequest;
+                errorMessage = "Invalid category data provided.";
+            }
+            else
+            {
+                errorMessage = "An unexpected error occurred.";
+            }
 
-//                await HandleExceptionAsync(context, ex);
-//            }
-//        }
+            var result = JsonSerializer.Serialize(new { error = errorMessage });
+            context.Response.ContentType = "application/json";
+            context.Response.StatusCode = (int)code;
 
-//        private static Task HandleExceptionAsync(HttpContext context, Exception exception)
-//        {
-//            var statusCode = HttpStatusCode.InternalServerError;
-//            var response = JsonSerializer.Serialize(new { message = exception.Message });
-
-//            context.Response.ContentType = "application/json";
-//            context.Response.StatusCode = (int)statusCode;
-
-//            return context.Response.WriteAsync(response);
-//        }
-//    }
-//}
+            await context.Response.WriteAsync(result);
+        }
+    }
+}

@@ -18,18 +18,18 @@ namespace GwiNews.API.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<NewsCategoryDTO>>> Get()
         {
-            var categoriesList = await _newsCategoryService.GetNewsCategories();
-            if (categoriesList == null || !categoriesList.Any())
+            var categories = await _newsCategoryService.GetCategoriesAsync();
+            if (categories == null || !categories.Any())
             {
-                return NotFound("No categories found");
+                return NotFound("Categories not found");
             }
-            return Ok(categoriesList);
+            return Ok(categories);
         }
 
-        [HttpGet("{id}", Name = "GetNewsCategory")]
+        [HttpGet("{id:guid}", Name = "GetNewsCategory")]
         public async Task<ActionResult<NewsCategoryDTO>> Get(Guid id)
         {
-            var category = await _newsCategoryService.GetNewsCategoryById(id);
+            var category = await _newsCategoryService.GetCategoryByIdAsync(id);
             if (category == null)
             {
                 return NotFound("Category not found");
@@ -43,10 +43,10 @@ namespace GwiNews.API.Controllers
             if (categoryDto == null)
                 return BadRequest("Invalid data");
 
-            await _newsCategoryService.AddNewsCategory(categoryDto);
+            var createdCategory = await _newsCategoryService.AddCategoryAsync(categoryDto);
 
-            return new CreatedAtRouteResult("GetNewsCategory",
-                new { id = categoryDto.Id }, categoryDto);
+            return CreatedAtRoute("GetNewsCategory",
+                new { id = createdCategory.Id }, createdCategory);
         }
 
         [HttpPut("{id:guid}", Name = "UpdateNewsCategory")]
@@ -54,30 +54,39 @@ namespace GwiNews.API.Controllers
         {
             if (id != categoryDto.Id)
             {
-                return BadRequest("Invalid data");
+                return BadRequest("Category ID mismatch");
             }
 
             if (categoryDto == null)
                 return BadRequest("Invalid data");
 
-            await _newsCategoryService.UpdateNewsCategory(categoryDto);
-
-            return Ok(categoryDto);
+            var updatedCategory = await _newsCategoryService.UpdateCategoryAsync(categoryDto);
+            return Ok(updatedCategory);
         }
 
         [HttpDelete("{id:guid}", Name = "DeleteNewsCategory")]
         public async Task<ActionResult<NewsCategoryDTO>> Delete(Guid id)
         {
-            var categoryDto = await _newsCategoryService.GetNewsCategoryById(id);
+            var category = await _newsCategoryService.GetCategoryByIdAsync(id);
 
-            if (categoryDto == null)
+            if (category == null)
             {
                 return NotFound("Category not found");
             }
 
-            await _newsCategoryService.RemoveNewsCategory(id);
+            var removedCategory = await _newsCategoryService.RemoveCategoryAsync(id);
+            return Ok(removedCategory);
+        }
 
-            return Ok(categoryDto);
+        [HttpGet("filter")]
+        public async Task<ActionResult<IEnumerable<NewsCategoryDTO>>> GetFiltered([FromQuery] string? name)
+        {
+            var categories = await _newsCategoryService.GetFilteredCategoriesAsync(name);
+            if (categories == null || !categories.Any())
+            {
+                return NotFound("No categories found with the specified filter");
+            }
+            return Ok(categories);
         }
     }
 }
