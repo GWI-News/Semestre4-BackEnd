@@ -1,6 +1,6 @@
-﻿using GwiNews.Domain.Entities; 
+﻿using GwiNews.Application.DTOs;
 
-namespace GwiNews.Domain.Interfaces
+namespace GwiNews.Application.Interfaces
 {
     public interface INewsSubcategoryService
     {
